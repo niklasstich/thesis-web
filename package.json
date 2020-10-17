@@ -1,0 +1,14 @@
+{
+  "name": "arithmetic-coding-anim",
+  "version": "1.0.0",
+  "description": "An animation of arithmetic coding that shows how one specific implementation works.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "animejs": "^3.2.1"
+  }
+}
