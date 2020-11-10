@@ -2,6 +2,18 @@
     font-family: 'Fira Sans', sans-serif;
 }
 
+.static {
+    cursor: not-allowed;
+}
+
+.draggable {
+    cursor: move;
+}
+
+foreignObject * {
+    pointer-events: none;
+}
+
 div {
     width: 100px;
     height: 100px;

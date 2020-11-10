@@ -18,7 +18,8 @@
     baseProfile="full"
     viewbox = "-20 -1 140 260" 
     width=400 height=800
-    xmlns="http://www.w3.org/2000/svg">
+    xmlns="http://www.w3.org/2000/svg"
+    onload="makeDraggable(evt)">
       <style>
         text {
           font-size: 5pt;
@@ -34,7 +35,7 @@
       <line x1="59" y1="0"    x2="59"   y2="239"  stroke="black" id="perpendicular-line" />
 
       <!-- Variable box -->
-      <rect x="0" y="0" width="20" height="20" fill="blue" rx="5" opacity="0.5" id="slider"></rect>
+      <rect x="0" y="0" width="20" height="20" fill="blue" rx="5" opacity="0.5" id="slider" class="draggable"></rect>
 
       <!-- Static Text boxes -->
       <text x="-19" y="241" id="Q0-text">MIN</text>
@@ -42,8 +43,6 @@
       <text x="0"   y="121" id="Q2-text">Q2 </text>
       <text x="20"  y="61"  id="Q3-text">Q3 </text>
       <text x="-19" y="2"   id="Q4-text">MAX</text>
-
-      <!-- Dynamic Text boxes -->
       
     </svg>
   </body>
