@@ -81,7 +81,5 @@ function main(){
     slider.setAttribute('x', String(middleLineX - sliderWidth/2));
     slider.setAttribute('width', String(sliderWidth));
     slider.setAttribute('height', String(sliderHeight));
-    
 }
-
 window.onload = main;
