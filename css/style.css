@@ -20,9 +20,11 @@ div {
 }
 
 svg {
-    overflow:hidden;
-    width: 100%;
+    overflow: auto;
+    /*width: 100%;*/
     height:100%;
 }
 #svg-div {
+    width: 100%;
+    overflow: auto;
 }

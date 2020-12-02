@@ -13,10 +13,10 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-4" id="svg-div">
+        <div class="col-8" id="svg-div">
           <svg version="1.1"
           baseProfile="full"
-          viewbox = "-19 -5 135 250" 
+          viewbox = "0 0 4000 1000" 
           xmlns="http://www.w3.org/2000/svg"
           onload="makeDraggable(evt)">
             <style>
@@ -25,27 +25,10 @@
               }
             </style>
 
-            <!-- Static lines -->
-            <line x1="0"  y1="239"  x2="119"  y2="239"  stroke="black" id="Q0-line" />
-            <line x1="39" y1="179"  x2="79"   y2="179"  stroke="black" id="Q1-line" />
-            <line x1="19" y1="119"  x2="99"   y2="119"  stroke="black" id="Q2-line" />
-            <line x1="39" y1="59"   x2="79"   y2="59"   stroke="black" id="Q3-line" />
-            <line x1="0"  y1="0"    x2="119"  y2="0"    stroke="black" id="Q4-line" />
-            <line x1="59" y1="0"    x2="59"   y2="239"  stroke="black" id="perpendicular-line" />
-
-            <!-- Variable box -->
-            <rect x="0" y="0" width="20" height="20" fill="blue" rx="5" opacity="0.5" id="slider" class="draggable"></rect>
-
-            <!-- Static Text boxes -->
-            <text x="-19" y="241" id="Q0-text">MIN</text>
-            <text x="20"  y="181" id="Q1-text">Q1 </text>
-            <text x="0"   y="121" id="Q2-text">Q2 </text>
-            <text x="20"  y="61"  id="Q3-text">Q3 </text>
-            <text x="-19" y="2"   id="Q4-text">MAX</text>
-
+            <rect width="6000" height="1000"></rect>
           </svg>
         </div>
-        <div class="col-8">
+        <div class="col-4">
           <h1>I AM IN A DIV :)</h1>
         </div>
       </div>
