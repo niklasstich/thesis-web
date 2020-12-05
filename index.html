@@ -9,6 +9,7 @@
     <link href="css/style.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="js/animation.js"></script>
+    <script src="js/example.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -16,20 +17,21 @@
         <div class="col-8" id="svg-div">
           <svg version="1.1"
           baseProfile="full"
-          viewbox = "0 0 4000 1000" 
+          viewBox = "0 0 0 200" 
           xmlns="http://www.w3.org/2000/svg"
-          onload="makeDraggable(evt)">
+          onload="makeDraggable(evt)"
+          id="svg">
             <style>
               text {
                 font-size: 5pt;
               }
             </style>
 
-            <rect width="6000" height="1000"></rect>
           </svg>
         </div>
         <div class="col-4">
           <h1>I AM IN A DIV :)</h1>
+          <button onclick="addDiagram()">Click me</button>
         </div>
       </div>
     </div>

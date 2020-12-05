@@ -23,8 +23,10 @@ svg {
     overflow: auto;
     /*width: 100%;*/
     height:100%;
+    padding: 5px;
 }
 #svg-div {
     width: 100%;
     overflow: auto;
+    padding: 5px;
 }
