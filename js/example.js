@@ -8,7 +8,7 @@ function addDiagram() {
     svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+120) + " " + (height));
     // add shapes
     const svgDoc = svgObject.ownerDocument;
-    const data = [
+    const lineData = [
         [width, width+100, 1, 1],
         [width, width+100, 199, 199],
         [width+50, width+50, 1, 199],
@@ -16,7 +16,8 @@ function addDiagram() {
         [width+35, width+65, 50, 50],
         [width+35, width+65, 150, 150]
     ];
-    data.forEach(element => {
+    // draw lines
+    lineData.forEach(element => {
         newShape = svgDoc.createElementNS("http://www.w3.org/2000/svg", "line");
         newShape.setAttributeNS(null, "x1", element[0]);
         newShape.setAttributeNS(null, "x2", element[1]);
@@ -25,4 +26,16 @@ function addDiagram() {
         newShape.setAttributeNS(null, "stroke", "black");
         svgObject.appendChild(newShape);
     })
-}
+    // draw letters
+    const letterData = [
+        [width+102, 5, "Max"],
+        [width+102, 199, "Min"]
+    ]
+    letterData.forEach(element => {
+        newShape = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text")
+        newShape.setAttributeNS(null, "x", element[0]);
+        newShape.setAttributeNS(null, "y", element[1]);
+        newShape.textContent = element[2];
+        svgObject.appendChild(newShape);
+    });
+    }
