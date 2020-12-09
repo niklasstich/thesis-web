@@ -10,8 +10,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="js/animation.js"></script>
     <script src="js/example.js"></script>
+    <script src="js/textContent.js"></script>
   </head>
-  <body>
+  <body onload="initializePage()">
     <div class="container-fluid">
       <div class="row">
         <div class="col-8" id="svg-div">
@@ -20,18 +21,23 @@
           viewBox = "0 0 0 200" 
           xmlns="http://www.w3.org/2000/svg"
           onload="makeDraggable(evt)"
-          id="svg">
-            <style>
-              text {
-                font-size: 5pt;
-              }
-            </style>
-
-          </svg>
+          id="svg"></svg>
         </div>
         <div class="col-4">
-          <h1>I AM IN A DIV :)</h1>
-          <button onclick="addDiagram()">Click me</button>
+            <h1>Festkommaimplementierung der arithmetischen Kodierung</h1>
+            <p id="explanation">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ex, nihil eius aspernatur vero perferendis maiores exercitationem sint dolores minus numquam cumque impedit rem voluptatem ratione, minima iure veniam? Dolore?</p>
+            <button onclick="addDiagram()">Click me</button>
+            <button onclick="resetSVG()">Reset SVG</button>
+            <pre>
+              <code>
+#include &lt;stdio.h&gt;
+int main() {
+   // printf() displays the string inside quotation
+   printf("Hello, World!");
+   return 0;
+}
+              </code>
+            </pre>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 let diagramIteration = 0;
+const height = 200;
+const maxDiagramIteration = festkommaText.length;
 
 function addDiagram() {
     diagramIteration++;
@@ -17,8 +19,8 @@ function addDiagram() {
     let lineGroup = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
     let textGroup = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
     lineGroup.setAttribute("stroke", "black");
-    lineGroup.classList += "lines";
-    textGroup.classList += "text";
+    lineGroup.classList.add("line-group");
+    textGroup.classList.add("text-group");
 
     // add shapes
     // x1 x2 y1 y2
@@ -40,7 +42,7 @@ function addDiagram() {
         lineGroup.appendChild(newShape);
     })
     // draw letters
-    // x y text
+    // x y text id
     const textData = [
         [width+102, 5, "Max", "max"],
         [width+102, 199, "Min", "min"],
@@ -53,11 +55,42 @@ function addDiagram() {
         newShape.setAttribute("x", element[0]);
         newShape.setAttribute("y", element[1]);
         newShape.textContent = element[2];
-        newShape.id = element[3];
+        newShape.classList.add("diagram-text");
+        newShape.classList.add(element[3]);
         textGroup.appendChild(newShape);
     }); 
     group.appendChild(lineGroup);
     group.appendChild(textGroup);
 
-    svgObject.appendChild(group);
+
+    //update explanation text
+    const explanationP = document.getElementById("explanation");
+    explanationP.innerHTML = festkommaText[diagramIteration];
+
+}
+
+
+function resetSVG() {
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    while(svgObject.firstChild) {
+        svgObject.removeChild(svgObject.lastChild);
+    }
+    svgObject.setAttribute("viewBox", "0 0 0 " + height);
+    diagramIteration = 0;
+}
+
+
+function animateBar(bar, upperX, lowerX) {
+
+}
+
+
+function advanceAnimation() {
+
+}
+
+function initializePage() {
+    const explanationP = document.getElementById("explanation");
+    explanationP.innerHTML = festkommaText[diagramIteration];
 }

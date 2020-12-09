@@ -1,5 +1,5 @@
 *, h1, p {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .static {
@@ -10,8 +10,17 @@
     cursor: move;
 }
 
+.diagram-text  {
+    font-size: 5pt;
+}
+
 foreignObject * {
     pointer-events: none;
+}
+
+div.right-code, div.right-text {
+    height: 50%;
+    display: flex;
 }
 
 div {
@@ -30,3 +39,4 @@ svg {
     overflow: auto;
     padding: 5px;
 }
+
