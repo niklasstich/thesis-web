@@ -1,6 +1,5 @@
 let diagramIteration = 0;
 const height = 200;
-const maxDiagramIteration = festkommaText.length;
 
 function addDiagram() {
     diagramIteration++;
@@ -61,7 +60,7 @@ function addDiagram() {
     }); 
     group.appendChild(lineGroup);
     group.appendChild(textGroup);
-
+    svgObject.appendChild(group);
 
     //update explanation text
     const explanationP = document.getElementById("explanation");
