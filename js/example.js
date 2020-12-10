@@ -83,19 +83,17 @@ function createBar(iteration, upperY, lowerY) {
     newShape.setAttribute("y", upperY);
     newShape.setAttribute("width", barWidth);
     newShape.setAttribute("height", lowerY - upperY);
+    newShape.classList.add("draggable");
     newShape.id = "bar-"+iteration;
     svgDoc.getElementById("bar-group-"+iteration).appendChild(newShape);
 }
 
 
 function advanceAnimation() {
-    addDiagram();
-    createBar(diagramIteration, 60, 140);
-    addDiagram(); 
-    createBar(diagramIteration, 40, 100);
-    addDiagram();
-    createBar(diagramIteration, 20, 60);
-
+    if (diagramIteration < animationData.length-1) {
+        addDiagram();
+        createBar(diagramIteration, animationData[diagramIteration][0], animationData[diagramIteration][1]);
+    }
 }
 
 function initializePage() {
@@ -129,4 +127,10 @@ const lineData = [
     [0+35, 0+65, 150, 150]
 ];
 
+const animationData = [
+    [],
+    [60, 140],
+    [40, 100],
+    [20, 60],
+]
 //const maxDiagramIteration = festkommaText.length;
