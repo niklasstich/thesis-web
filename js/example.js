@@ -1,4 +1,8 @@
+let animationIteration = 0;
 let diagramIteration = 0;
+let barValueTextIteration = 0;
+let explanationIteration = 0;
+const updatableTextFields = 5;
 const height = 200;
 const barWidth = 20; 
 
@@ -41,7 +45,7 @@ function addDiagram() {
         newShape.setAttribute("y", element[1]);
         newShape.textContent = element[2];
         newShape.classList.add("diagram-text");
-        newShape.classList.add(element[3]);
+        newShape.id = element[3] + diagramIteration;
         textGroup.appendChild(newShape);
     });
     group.appendChild(barGroup);
@@ -49,7 +53,7 @@ function addDiagram() {
     group.appendChild(textGroup);
     svgObject.appendChild(group);
 
-    updateExplanation();
+    
 }
 
 function resetSVG() {
@@ -63,13 +67,36 @@ function resetSVG() {
 
 function resetState() {
     resetSVG();
+    animationIteration = 0;
     diagramIteration = 0;
-    updateExplanation();
+    barValueTextIteration = 0;
+    explanationIteration = 0;
+    //updateExplanation();
+    initializePage();
 }
 
 function updateExplanation() {
     const explanationP = document.getElementById("explanation");
-    explanationP.innerHTML = festkommaText[diagramIteration];   
+    explanationP.innerHTML = explanationData[explanationIteration];
+    explanationIteration++;
+}
+
+function updateBarValueText() {
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    for (let i = 0; i < updatableTextFields; i++) {
+        if (intervalNumbers[barValueTextIteration][i] == "") {
+            continue;
+        }
+        const idPrefix = textData[i][3];
+        const element = svgDoc.getElementById(idPrefix + diagramIteration);
+        if (element.innerHTML == ""){
+            element.innerHTML = intervalNumbers[barValueTextIteration][i];
+        } else {
+            element.innerHTML += ": "+ intervalNumbers[barValueTextIteration][i];
+        }
+    }
+    barValueTextIteration++;
 }
 
 
@@ -90,23 +117,66 @@ function createBar(iteration, upperY, lowerY) {
 
 
 function advanceAnimation() {
+    animationActions[animationIteration]();
+    animationIteration++;
+    /*
     if (diagramIteration < animationData.length-1) {
         addDiagram();
-        createBar(diagramIteration, animationData[diagramIteration][0], animationData[diagramIteration][1]);
+        //createBar(diagramIteration, animationData[diagramIteration][0], animationData[diagramIteration][1]);
+    }*/
+}
+
+function reverseAnimation() {
+    const prevIteration = animationIteration -1;
+    resetState();
+    while (animationIteration < prevIteration) {
+        advanceAnimation();
     }
 }
 
-const festkommaText = [
-    "Test1",
-    "Test2",
-    "Test3",
+function initializePage() {	
+    const explanationP = document.getElementById("explanation");	
+    explanationP.innerHTML = explanationData[explanationIteration];
+    explanationIteration++;
+}
+
+function changeLetterColor(letter, iteration, color){
+    const element = document.getElementById(letter + "-" + iteration);
+    element.setAttribute("fill", color);
+}
+
+function highlightLetter(letter, iteration) {
+    changeLetterColor(letter, iteration, "red");
+}
+
+function removeHighlight(letter, iteration){
+    changeLetterColor(letter, iteration, "black");
+}
+
+const explanationData = [
+    "Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.<br/>\
+    Gegeben sind Alphabet <b>A={a, b, c, d}</b>, Wahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b><br/>\
+    Die Nachricht sei: \"dcba\"",
+
+    "A={a, b, c, d}, p={0.5, 0.1, 0.3, 0.1}, m=\"dcba\"</br>\
+    Initialisiere Intervall min und max zunächst mit <b>0.0</b> und <b>1.0</b><br/>",
+
+    "Berechne Intervalle für alle Symbole in A, wobei l die Länge unseres Intervalls ist (also Max-Min)<br/>\
+    die Untergrenze des Intervalls Min+l&#215;&Sigma;p<sub>j</sub>, mit j&lt;i und i als Index des Symbols",
     "Test4"
 ]
 // draw letters
 // x y text id
 const textData = [
-    [0+82, 5, "Max", "max"],
-    [0+82, 199, "Min", "min"],
+    [0+82, 199, "Min", "min-"],
+    [0+52, 101, "", "b-interval-"],
+    [0+52, 81, "", "c-interval-"],
+    [0+52, 21, "", "d-interval-"],
+    [0+82, 5, "Max", "max-"],
+    [0+42, 151, "a", "a-"],
+    [0+42, 91, "b", "b-"],
+    [0+42, 51, "c", "c-"],
+    [0+42, 11, "d", "d-"]
     //[0+67, 152, "Q1", "q1"],
     //[0+87, 102, "Q2", "q2"],
     //[0+67, 52, "Q3", "q3"]
@@ -117,15 +187,36 @@ const lineData = [
     [0, 0+80, 1, 1],
     [0, 0+80, 199, 199],
     [0+40, 0+40, 1, 199, "middle-line-"],
+    [0+30, 0+50, 100, 100, "b-line-"],
+    [0+30, 0+50, 80, 80, "c-line-"],
+    [0+30, 0+50, 20, 20, "d-line-"]
     //[0+15, 0+85, 100, 100],
     //[0+35, 0+65, 50, 50],
     //[0+35, 0+65, 150, 150]
 ];
 
-const animationData = [
-    [],
-    [60, 140],
-    [40, 100],
-    [20, 60],
+const intervalNumbers = [
+    ["0.0", "", "", "", "1.0"],
+    ["", "0.5", "0.6", "0.9", ""]
+]
+
+var animationActions = [
+    function () {
+        addDiagram();
+        updateExplanation();
+        updateBarValueText();
+    },
+    function() {
+        updateExplanation(); 
+        updateBarValueText();
+    },
+    function() {
+        updateExplanation();
+        highlightLetter("d", 1);
+    },
+    function() {
+        updateExplanation();
+        removeHighlight("d", 1);
+    }
 ]
 //const maxDiagramIteration = festkommaText.length;

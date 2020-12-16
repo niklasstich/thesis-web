@@ -2,6 +2,10 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+p {
+    font-size:x-large;
+}
+
 .static {
     cursor: not-allowed;
 }
