@@ -96,11 +96,6 @@ function advanceAnimation() {
     }
 }
 
-function initializePage() {
-    const explanationP = document.getElementById("explanation");
-    explanationP.innerHTML = festkommaText[diagramIteration];
-}
-
 const festkommaText = [
     "Test1",
     "Test2",
@@ -110,21 +105,21 @@ const festkommaText = [
 // draw letters
 // x y text id
 const textData = [
-    [0+102, 5, "Max", "max"],
-    [0+102, 199, "Min", "min"],
-    [0+67, 152, "Q1", "q1"],
-    [0+87, 102, "Q2", "q2"],
-    [0+67, 52, "Q3", "q3"]
+    [0+82, 5, "Max", "max"],
+    [0+82, 199, "Min", "min"],
+    //[0+67, 152, "Q1", "q1"],
+    //[0+87, 102, "Q2", "q2"],
+    //[0+67, 52, "Q3", "q3"]
 ]
 // add shapes
 // x1 x2 y1 y2
 const lineData = [
-    [0, 0+100, 1, 1],
-    [0, 0+100, 199, 199],
-    [0+50, 0+50, 1, 199, "middle-line-"],
-    [0+15, 0+85, 100, 100],
-    [0+35, 0+65, 50, 50],
-    [0+35, 0+65, 150, 150]
+    [0, 0+80, 1, 1],
+    [0, 0+80, 199, 199],
+    [0+40, 0+40, 1, 199, "middle-line-"],
+    //[0+15, 0+85, 100, 100],
+    //[0+35, 0+65, 50, 50],
+    //[0+35, 0+65, 150, 150]
 ];
 
 const animationData = [
