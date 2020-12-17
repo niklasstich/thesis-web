@@ -3,7 +3,11 @@
 }
 
 p {
-    font-size:x-large;
+    font-size:xx-large;
+}
+
+span.emphasis {
+    color:red;
 }
 
 .static {
@@ -38,7 +42,7 @@ div {
 }
 
 svg {
-    overflow: auto;
+    overflow-y: auto;
     /*width: 100%;*/
     height:100%;
     padding: 5px;
@@ -47,4 +51,26 @@ svg {
     width: 100%;
     overflow: auto;
     padding: 5px;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #dfdfdf;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #941e00;
+}
+
+.fade-in {
+    animation: fadeIn ease-in 1.5s;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }

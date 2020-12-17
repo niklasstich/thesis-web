@@ -15,7 +15,7 @@
   <body onload="initializePage()">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-8" id="svg-div">
+        <div class="col-7" id="svg-div">
           <svg version="1.1"
           baseProfile="full"
           viewBox = "0 0 0 200" 
@@ -25,9 +25,9 @@
         </div>
         <div class="col-4">
           <h1>Mathematische Grundlagen der arithmetischen Kodierung</h1>
-          <button onclick="reverseAnimation()">Zurück</button>
-          <button onclick="advanceAnimation()">Weiter</button>
-          <button onclick="resetState()">Zurück zum Anfang</button>
+          <button onclick="reverseAnimation()" id="button-back">Zurück</button>
+          <button onclick="advanceAnimation()" id="button-forward">Weiter</button>
+          <button onclick="resetState()" id="button-reset">Zurück zum Anfang</button>
           <p id="explanation"></p>
         </div>
       </div>
