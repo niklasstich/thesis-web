@@ -216,15 +216,15 @@ const explanationData = [
 
     "Initialisiere Intervall min und max zunächst mit <b>0.0</b> und <b>1.0</b><br/>",
 
-    "Berechne Intervalle für alle Symbole in A, wobei l die Länge unseres Intervalls ist (also Max-Min).<br/>\
-    Die Untergrenze u des Subintervalls ist <b>u<sub>i</sub> = Min+l&times;&Sigma;p<sub>j</sub></b>, mit <b>j&lt;i</b> und i als Index des Symbols.<br/>\
+    "Berechne Subintervalle für alle Symbole in A, wobei l die Länge unseres Intervalls ist (also <b>l = Max-Min</b>).<br/>\
+    Die Untergrenze u der Subintervalle ist <b>u<sub>i</sub> = Min+l&times;&Sigma;p<sub>j</sub></b>, mit <b>j&lt;i</b> und i als Index des Symbols.<br/>\
     Die Obergrenze v ist <b>v<sub>i</sub> = u+l&times;p<sub>i</sub></b><br/>\
     Beispielsweise für c also: <b>u<sub>2</sub> = 0,0 + 1,0&times;0,6 = <span class=\"emphasis\">0,6</span>; v<sub>2</sub> = 0,6 + 1,0&times;0,3 = <span class=\"emphasis\">0,9</span></b>",
 
     "Markiere das erste Symbol aus der Nachricht. Ersetze nun Min und Max im nächsten Diagramm mit der unteren und oberen Grenze des Intervals des Symbols.<br/>\
     Frage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result\"></span>",
 
-    "Das Teilinterval [0,9;1.0) ist also unser neues Intervall. Berechne nun wieder die Subintervalle. Wir sind ab jetzt faul und berechnen nur noch für das nächste Symbol in der Nachricht, also hier das c.",
+    "Das Teilinterval [0,9;1.0) ist also unser neues Intervall. Berechne nun wieder die Subintervalle. Wir sind ab jetzt faul und berechnen nur noch für das nächste Symbol in der Nachricht, also c.",
 
     "Wir berechnen für c das Teilintervall: <br/><b>c = 0,9 + 0,1&times;0,6 = 0,96; v = 0,96 + 0,1&times;0,3 = 0,99</b>",
 
@@ -330,6 +330,7 @@ var animationActions = [
         drawLineBetweenDiagrams("b-line-3", "min-line-4");
         highlightLetter("min", 4);
         highlightLetter("b-interval", 4);
+        disableAnimationProgress();
     }
 ]
 //const maxDiagramIteration = festkommaText.length;
