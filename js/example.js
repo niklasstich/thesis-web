@@ -132,15 +132,10 @@ function advanceAnimation() {
     enableAnimationProgress();
     animationActions[animationIteration]();
     animationIteration++;
-    /*
-    if (diagramIteration < animationData.length-1) {
-        addDiagram();
-        //createBar(diagramIteration, animationData[diagramIteration][0], animationData[diagramIteration][1]);
-    }*/
 }
 
 function reverseAnimation() {
-    const prevIteration = animationIteration -1;
+    const prevIteration = animationIteration - 1;
     resetState();
     while (animationIteration < prevIteration) {
         advanceAnimation();
@@ -151,6 +146,7 @@ function initializePage() {
     const explanationP = document.getElementById("explanation");	
     explanationP.innerHTML = explanationData[explanationIteration];
     explanationIteration++;
+    makeTableInvisible();
 }
 
 function changeLetterColor(letter, iteration, color){
@@ -209,9 +205,22 @@ function checkQuiz1() {
     enableAnimationProgress();
 }
 
+function makeTableVisible() {
+    const element = document.getElementById("algo-table");
+    element.style.visibility = "visible";
+}
+
+function makeTableInvisible() {
+    const element = document.getElementById("algo-table");
+    element.style.visibility = "hidden";
+}
+
 const explanationData = [
-    "Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.<br/>\
-    Gegeben sind Alphabet <b>A={a, b, c, d}</b>, Wahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b><br/>\
+    "<ul>\
+    <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
+    <li>Unterteilung eines Intervalls in Subintervalle abhängig von Auftrittswahrscheinlichkeit</li>",
+
+    "Gegeben sind Alphabet <b>A={a, b, c, d}</b>, Wahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b><br/>\
     Die Nachricht sei: \"dcba\"",
 
     "Initialisiere Intervall min und max zunächst mit <b>0.0</b> und <b>1.0</b><br/>",
@@ -248,9 +257,6 @@ const textData = [
     [0+42, 91, "b", "b-"],
     [0+42, 51, "c", "c-"],
     [0+42, 11, "d", "d-"]
-    //[0+67, 152, "Q1", "q1"],
-    //[0+87, 102, "Q2", "q2"],
-    //[0+67, 52, "Q3", "q3"]
 ]
 // add shapes
 // x1 x2 y1 y2
@@ -261,9 +267,6 @@ const lineData = [
     [0+30, 0+50, 100, 100, "b-line-"],
     [0+30, 0+50, 80, 80, "c-line-"],
     [0+30, 0+50, 20, 20, "d-line-"]
-    //[0+15, 0+85, 100, 100],
-    //[0+35, 0+65, 50, 50],
-    //[0+35, 0+65, 150, 150]
 ];
 
 const intervalNumbers = [
@@ -278,9 +281,13 @@ const intervalNumbers = [
 
 var animationActions = [
     function () {
+        updateExplanation();
+    },
+    function () {
         addDiagram();
         updateExplanation();
         updateBarValueText();
+        makeTableVisible();
     },
     function() {
         updateExplanation(); 
@@ -294,7 +301,6 @@ var animationActions = [
         highlightLetter("d", 1);
         removeHighlight("d-interval", 1);
         removeHighlight("c-interval", 1);
-        disableAnimationProgress();
     },
     function() {
         updateExplanation();

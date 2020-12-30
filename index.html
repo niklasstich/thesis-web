@@ -15,6 +15,22 @@
   <body onload="initializePage()">
     <div class="container-fluid">
       <div class="row">
+        <div class="col-4">
+          <h1>Mathematische Grundlagen der arithmetischen Kodierung</h1>
+          <button onclick="reverseAnimation()" id="button-back">Zurück</button>
+          <button onclick="advanceAnimation()" id="button-forward">Weiter</button>
+          <button onclick="resetState()" id="button-reset">Zurück zum Anfang</button>
+          <table id="algo-table" style="visibility: hidden;">
+            <tr>
+              <th>Buchstabe</th>
+              <th>rel. Häufigkeit</th>
+              <th>kumulative Häufigkeit</th>
+              <th>unteres Limit</th>
+              <th>oberes Limit</th>
+            </tr>
+          </table>
+          <p id="explanation"></p>
+        </div>
         <div class="col-7" id="svg-div">
           <svg version="1.1"
           baseProfile="full"
@@ -22,13 +38,6 @@
           xmlns="http://www.w3.org/2000/svg"
           onload="makeDraggable(evt)"
           id="svg"></svg>
-        </div>
-        <div class="col-4">
-          <h1>Mathematische Grundlagen der arithmetischen Kodierung</h1>
-          <button onclick="reverseAnimation()" id="button-back">Zurück</button>
-          <button onclick="advanceAnimation()" id="button-forward">Weiter</button>
-          <button onclick="resetState()" id="button-reset">Zurück zum Anfang</button>
-          <p id="explanation"></p>
         </div>
       </div>
     </div>
