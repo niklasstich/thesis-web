@@ -218,7 +218,8 @@ function makeTableInvisible() {
 const explanationData = [
     "<ul>\
     <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
-    <li>Unterteilung eines Intervalls in Subintervalle abhängig von Auftrittswahrscheinlichkeit</li>",
+    <li>Unterteilung eines Intervalls in Subintervalle abhängig von (relativer) Auftrittswahrscheinlichkeit der Zeichen</li>\
+    </ul>",
 
     "Gegeben sind Alphabet <b>A={a, b, c, d}</b>, Wahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b><br/>\
     Die Nachricht sei: \"dcba\"",
