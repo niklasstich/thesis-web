@@ -10,7 +10,7 @@ body {
 }
 
 nav {
-    border: solid 3px black;
+    border-bottom: solid 0.5px black;
 }
 nav, nav div{
     background-color: #c9c9c9;
@@ -21,6 +21,16 @@ nav a {
 nav li {
     border: solid 2px #ad2300;
     background-color: #b3b3b3;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+nav a.navbar-brand {
+    font-weight: bold;
+}
+
+nav .active {
+    font-weight: bolder;
 }
 
 body, div#main-content.container-fluid * {
