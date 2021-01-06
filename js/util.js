@@ -4,20 +4,32 @@ let barValueTextIteration = 0;
 let explanationIteration = 0;
 const updatableTextFields = 5;
 const height = 200;
-const barWidth = 20; 
+const barWidth = 20;
+const iterationWidth = 120;
 
-function addDiagram() {
-    diagramIteration++;
-    // get svg
+function extendSVG() {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
     // make room for new diagram
     const viewBox = svgObject.getAttributeNS(null, "viewBox");
     const width = parseInt(viewBox.split(" ")[2])
     const height = parseInt(viewBox.split(" ")[3])
-    svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+120) + " " + (height));
-    
-    // add groups
+    svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+iterationWidth) + " " + (height));
+}
+
+function createOrFindGroups(){
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    //first, try to find the group as a child of the document
+    var metaGroup = svgDoc.getElementById("diagram-"+diagramIteration);
+    if (metaGroup != null) {
+        //we found it, return the groups
+        const lineGroup = svgDoc.getElementById("line-group-"+diagramIteration);
+        const textGroup = svgDoc.getElementById("text-group-"+diagramIteration);
+        const barGroup = svgDoc.getElementById("bar-group-"+diagramIteration);
+        return [lineGroup, textGroup, barGroup];
+    }
+    //didn't find metagroup, so create all groups and add them to the svg
     let group = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
     group.id = "diagram-"+diagramIteration;
     let lineGroup = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -27,8 +39,24 @@ function addDiagram() {
     lineGroup.id = "line-group-"+diagramIteration;
     textGroup.id = "text-group-"+diagramIteration;
     barGroup.id = "bar-group-"+diagramIteration;
+    group.appendChild(barGroup);
+    group.appendChild(lineGroup);
+    group.appendChild(textGroup);
+    svgObject.appendChild(group);
+    return [lineGroup, textGroup, barGroup];
+}
+
+//Prints all lines found in lineData that are specified in indices
+function drawLines(indices) {
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    const viewBox = svgObject.getAttributeNS(null, "viewBox");
+    const width = parseInt(viewBox.split(" ")[2])-iterationWidth;
+    const height = parseInt(viewBox.split(" ")[3])
+    const [lineGroup, textGroup, barGroup] = createOrFindGroups();
     // draw lines
-    lineData.forEach(element => {
+    indices.forEach(index => {
+        const element = lineData[index];
         let newShape = svgDoc.createElementNS("http://www.w3.org/2000/svg", "line");
         newShape.setAttribute("x1", element[0]+width);
         newShape.setAttribute("x2", element[1]+width);
@@ -39,8 +67,18 @@ function addDiagram() {
         }
         newShape.classList.add("fade-in");
         lineGroup.appendChild(newShape);
-    })
-    textData.forEach(element => {
+    });
+}
+//Like drawLines but for textData
+function drawText(indices) {
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    const viewBox = svgObject.getAttributeNS(null, "viewBox");
+    const width = parseInt(viewBox.split(" ")[2])-iterationWidth;
+    const height = parseInt(viewBox.split(" ")[3])
+    const [lineGroup, textGroup, barGroup] = createOrFindGroups();
+    indices.forEach(index => {
+        const element = textData[index];
         let newShape = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text")
         newShape.setAttribute("x", element[0] + width);
         newShape.setAttribute("y", element[1]);
@@ -50,11 +88,18 @@ function addDiagram() {
         newShape.id = element[3] + diagramIteration;
         textGroup.appendChild(newShape);
     });
-    group.appendChild(barGroup);
-    group.appendChild(lineGroup);
-    group.appendChild(textGroup);
-    svgObject.appendChild(group);
-
+}
+function addDiagram() {
+    diagramIteration++;
+    // get svg
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    const viewBox = svgObject.getAttributeNS(null, "viewBox");
+    const width = parseInt(viewBox.split(" ")[2])
+    const height = parseInt(viewBox.split(" ")[3])
+    extendSVG();
+    drawLines([...lineData.keys()]);
+    drawText([...textData.keys()]);
     //slide slider to the right slowly, if applicable
     //TODO: Figure out a way to scroll nicely, perhaps with jQuery 
     // see https://stackoverflow.com/a/51005649/8901348
@@ -84,11 +129,7 @@ function resetState() {
 
 function updateExplanation() {
     const explanationP = document.getElementById("explanation");
-    if (explanationIteration > 0){
-        explanationP.innerHTML = "A={a, b, c, d}, p={0.5, 0.1, 0.3, 0.1}, m=\"dcba\"</br>" + explanationData[explanationIteration];
-    } else {
-        explanationP.innerHTML = explanationData[explanationIteration];
-    }
+    explanationP.innerHTML = explanationData[explanationIteration];
     explanationIteration++;
 }
 

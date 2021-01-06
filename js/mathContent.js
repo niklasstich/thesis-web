@@ -1,13 +1,18 @@
 const explanationData = [
     "<ul>\
     <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
-    <li>Unterteilung eines Intervalls in Subintervalle abhängig von (relativer) Auftrittswahrscheinlichkeit der Zeichen</li>\
+    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit [0;1).</li>\
+    <li>Basierend auf den Auftrittswahrscheinlichkeiten der Symbole im Alphabet wird dieses Intervall in Subintervalle unterteilt.</li>\
+    <li>Wir wählen dann immer das Subinterval als neues Interval, welches zum nächsten Symbol in unserer Nachricht gehört.</li>\
     </ul>",
 
-    "Gegeben sind Alphabet <b>A={a, b, c, d}</b>, Wahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b><br/>\
-    Die Nachricht sei: \"dcba\"",
+    "Erläutern wir dies an einem Beispiel. Gegeben sind:<br/><ul>\
+    <li>Ein Alphabet <b>A={a, b, c, d}</b></li>\
+    <li>Auftrittswahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b>. Das Symbol \"a\" tritt also mit einer Wahrscheinlichkeit von 50% auf, das Symbol \"b\" mit einer Wahrscheinlichkeit von 10% usw.</li>\
+    <li>Die Nachricht sei: m=\"dcba\"</li>\
+    </ul>",
 
-    "Initialisiere Intervall min und max zunächst mit <b>0.0</b> und <b>1.0</b><br/>",
+    "Wir initialisieren also zunächst wie bereits besprochen unser Intervall von 0 bis 1<br/>",
 
     "Berechne Subintervalle für alle Symbole in A, wobei l die Länge unseres Intervalls ist (also <b>l = Max-Min</b>).<br/>\
     Die Untergrenze u der Subintervalle ist <b>u<sub>i</sub> = Min+l&times;&Sigma;p<sub>j</sub></b>, mit <b>j&lt;i</b> und i als Index des Symbols.<br/>\
@@ -31,10 +36,10 @@ const explanationData = [
 ]
 const textData = [
     [0+82, 199, "Min", "min-"],
+    [0+82, 5, "Max", "max-"],
     [0+52, 101, "", "b-interval-"],
     [0+52, 81, "", "c-interval-"],
     [0+52, 21, "", "d-interval-"],
-    [0+82, 5, "Max", "max-"],
     [0+42, 151, "a", "a-"],
     [0+42, 91, "b", "b-"],
     [0+42, 51, "c", "c-"],
@@ -42,22 +47,22 @@ const textData = [
 ]
 
 const lineData = [
+    [0+40, 0+40, 1, 199, "middle-line-"],
     [0, 0+80, 1, 1, "max-line-"],
     [0, 0+80, 199, 199, "min-line-"],
-    [0+40, 0+40, 1, 199, "middle-line-"],
     [0+30, 0+50, 100, 100, "b-line-"],
     [0+30, 0+50, 80, 80, "c-line-"],
     [0+30, 0+50, 20, 20, "d-line-"]
 ];
 
 const intervalNumbers = [
-    ["0,0", "", "", "", "1,0"],
-    ["", "0,5", "0,6", "0,9", ""],
-    ["0,9", "", "", "", "1,0"],
-    ["", "", "0,96", "0,99", ""],
-    ["0,96", "0,975", "0,978", "", "0,99"],
-    ["0,975", "0,9765", "", "", "0,978"],
-    ["0,975", "", "", "", "0,9765"]
+    ["0,0", "1,0", "", "", ""],
+    ["", "", "0,5", "0,6", "0,9"],
+    ["0,9", "1,0", "", "", ""],
+    ["", "", "", "0,96", "0,99"],
+    ["0,96", "0,99", "0,975", "0,978", ""],
+    ["0,975", "0,978", "0,9765", "", ""],
+    ["0,975", "0,9765", "", "", ""]
 ]
 
 var animationActions = [
@@ -65,12 +70,16 @@ var animationActions = [
         updateExplanation();
     },
     function () {
-        addDiagram();
+        extendSVG();
+        drawLines([0, 1, 2]);
+        drawText([0, 1]);
         updateExplanation();
         updateBarValueText();
-        makeTableVisible();
+        //makeTableVisible(); TODO: uncomment when table is implemented
     },
     function() {
+        drawLines([3, 4, 5]);
+        drawText([2, 3, 4, 5, 6, 7, 8]);
         updateExplanation(); 
         updateBarValueText();
         highlightLetter("d-interval", 1);
