@@ -131,6 +131,7 @@ function updateExplanation() {
     const explanationP = document.getElementById("explanation");
     explanationP.innerHTML = explanationData[explanationIteration];
     explanationIteration++;
+    MathJax.typeset();
 }
 
 function updateBarValueText() {
@@ -188,6 +189,7 @@ function initializePage() {
     explanationP.innerHTML = explanationData[explanationIteration];
     explanationIteration++;
     makeTableInvisible();
+    MathJax.typeset();
 }
 
 function changeLetterColor(letter, iteration, color){

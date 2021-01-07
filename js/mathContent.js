@@ -1,18 +1,28 @@
 const explanationData = [
     "<ul>\
     <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
-    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit [0;1).</li>\
+    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit \\(\[0;1\)\\).</li>\
     <li>Basierend auf den Auftrittswahrscheinlichkeiten der Symbole im Alphabet wird dieses Intervall in Subintervalle unterteilt.</li>\
     <li>Wir wählen dann immer das Subinterval als neues Interval, welches zum nächsten Symbol in unserer Nachricht gehört.</li>\
     </ul>",
 
     "Erläutern wir dies an einem Beispiel. Gegeben sind:<br/><ul>\
-    <li>Ein Alphabet <b>A={a, b, c, d}</b></li>\
-    <li>Auftrittswahrscheinlichkeiten <b>p={0.5, 0.1, 0.3, 0.1}</b>. Das Symbol \"a\" tritt also mit einer Wahrscheinlichkeit von 50% auf, das Symbol \"b\" mit einer Wahrscheinlichkeit von 10% usw.</li>\
-    <li>Die Nachricht sei: m=\"dcba\"</li>\
+    <li>Ein Alphabet <b>\\(A=\\{a, b, c, d\\}\\)</b></li>\
+    <li>Auftrittswahrscheinlichkeiten <b>\\(p=\\{0.5, 0.1, 0.3, 0.1\\}\\)</b>. Das Symbol \"a\" tritt also mit einer Wahrscheinlichkeit von 50% auf, das Symbol \"b\" mit einer Wahrscheinlichkeit von 10% usw.</li>\
+    <li>Die Nachricht sei: \\(m=`dcba`\\)</li>\
     </ul>",
 
-    "Wir initialisieren also zunächst wie bereits besprochen unser Intervall von 0 bis 1<br/>",
+    "<ul>\
+    <li>Wir initialisieren also zunächst wie bereits besprochen unser Intervall von 0 bis 1</li>\
+    <li>Danach berechnen wir die Subintervalle für die Auftrittswahrscheinlichkeiten in aktuellen Intervall:</li>\
+    <li>Die Länge des aktuellen Intervalls ist simpel \\(l=Max-Min\\)</li>\
+    <li>Die untere Grenze eines Symbols ergibt sich aus dem Minimum und der Länge des aktuellen Intervalls und der kumulativen Wahrscheinlichkeit der Symbole vor dem Symbol im Alphabet: \
+    \\(u=Min+l*\\sum_{i=0}^{n-1} p_i\\)</br>\
+    Die untere Grenze des ersten Symbols ist gleich \\(Min\\)\</li>\
+    <li>Die obere Grenze ergibt sich aus der unteren Grenze plus der Länge des aktuellen Intervalls mal der Auftrittswahrscheinlichkeit:\
+    \\(v=u+l*p_i\\).</br>\
+    Die obere Grenze des letzten Symbols im Alphabet ist demnach \\(Max\\)</li>\
+    </ul>",
 
     "Berechne Subintervalle für alle Symbole in A, wobei l die Länge unseres Intervalls ist (also <b>l = Max-Min</b>).<br/>\
     Die Untergrenze u der Subintervalle ist <b>u<sub>i</sub> = Min+l&times;&Sigma;p<sub>j</sub></b>, mit <b>j&lt;i</b> und i als Index des Symbols.<br/>\
