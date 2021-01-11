@@ -1,7 +1,7 @@
 const explanationData = [
     "<ul>\
     <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
-    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit \\(\[0;1\)\\).</li>\
+    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit \\(\[0;1\)\\)</li>\
     <li>Basierend auf den Auftrittswahrscheinlichkeiten der Symbole im Alphabet wird dieses Intervall in Subintervalle unterteilt.</li>\
     <li>Wir wählen dann immer das Subinterval als neues Interval, welches zum nächsten Symbol in unserer Nachricht gehört.</li>\
     </ul>",
@@ -17,22 +17,37 @@ const explanationData = [
     <li>Danach berechnen wir die Subintervalle für die Auftrittswahrscheinlichkeiten in aktuellen Intervall:</li>\
     <li>Die Länge des aktuellen Intervalls ist simpel \\(l=Max-Min\\)</li>\
     <li>Die untere Grenze eines Symbols ergibt sich aus dem Minimum und der Länge des aktuellen Intervalls und der kumulativen Wahrscheinlichkeit der Symbole vor dem Symbol im Alphabet: \
-    \\(u=Min+l*\\sum_{i=0}^{n-1} p_i\\)</br>\
+    \\(u_{i}=Min+l*\\sum_{j=0}^{i-1} p_j\\)</br>\
     Die untere Grenze des ersten Symbols ist gleich \\(Min\\)\</li>\
     <li>Die obere Grenze ergibt sich aus der unteren Grenze plus der Länge des aktuellen Intervalls mal der Auftrittswahrscheinlichkeit:\
-    \\(v=u+l*p_i\\).</br>\
+    \\(v=_{i}u_{i}+l*p_{i}\\).</br>\
     Die obere Grenze des letzten Symbols im Alphabet ist demnach \\(Max\\)</li>\
+    <li>Denkanstoß: Warum muss man lediglich einmal \\(u_{0}\\) berechnen und danach nur noch \\(v_{n-1}\\)?</br>\
+    Antwort: <span class=\"blurred-text noselect\" id=\"blurr-1\" onclick=\"toggleBlur(\'blurr-1\')\">Das liegt daran, dass \\(v_{i}=u_{i+1}\\) und wir somit \\(u_{i+1}\\) nicht mehr berechnen müssen, wenn wir schon \\(v_{i}\\) kennen.</span></li>\
     </ul>",
 
-    "Berechne Subintervalle für alle Symbole in A, wobei l die Länge unseres Intervalls ist (also <b>l = Max-Min</b>).<br/>\
-    Die Untergrenze u der Subintervalle ist <b>u<sub>i</sub> = Min+l&times;&Sigma;p<sub>j</sub></b>, mit <b>j&lt;i</b> und i als Index des Symbols.<br/>\
-    Die Obergrenze v ist <b>v<sub>i</sub> = u+l&times;p<sub>i</sub></b><br/>\
-    Beispielsweise für c also: <b>u<sub>2</sub> = 0,0 + 1,0&times;0,6 = <span class=\"emphasis\">0,6</span>; v<sub>2</sub> = 0,6 + 1,0&times;0,3 = <span class=\"emphasis\">0,9</span></b>",
+    "<ul>\
+    <li>Im Diagramm und Tabelle oben wurden die berechneten Werte eingetragen.</li>\
+    <li>Als Beispiel einmal die Berechnung für den Buchstaben 'c'</li>\
+    <li>\\(l=Max-Min=1.0-0.0=1.0\\)</li>\
+    <li>\\(u_{c}=u_{2}=Min+l*\\sum_{i=0}^{n-1} p_i = 0.0+1.0*(0.5+0.1)=0.0+0.6=0.6\\)</li>\
+    <li>\\(v_{c}=v_{2}=u_{i}+l*p_{i}=0.6+1.0*0.3=0.9\\)</li>\
+    </ul>",
 
-    "Markiere das erste Symbol aus der Nachricht. Ersetze nun Min und Max im nächsten Diagramm mit der unteren und oberen Grenze des Intervals des Symbols.<br/>\
-    Frage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result\"></span>",
+    "<ul>\
+    <li>Mit der Nachricht \\(m=`dcba`\\) interessiert uns als erstes das Symbol 'd'</li>\
+    <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\))</li>\
+    </ul>\
+    Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result-1\"></span>",
 
-    "Das Teilinterval [0,9;1.0) ist also unser neues Intervall. Berechne nun wieder die Subintervalle. Wir sind ab jetzt faul und berechnen nur noch für das nächste Symbol in der Nachricht, also c.",
+    "<ul>\
+    <li>Das Teilinterval [0,9;1.0) ist also unser neues Intervall.</li>\
+    <li>Wir berechnen wieder die Subintervalle nach gleicher Vorgehensweise.</li>\
+    <li>Beispielsweise für c, welches wir als nächstes Symbol brauchen:</li>\
+    <li>\\(l=1.0-0.9=0.1\\)</li>\
+    <li>\\(u_{c}=u_{2}=Min+l*\\sum_{i=0}^{n-1} p_i = 0.9+0.1*0.6 = 0.96\\)</li>\
+    <li>\\(v_{c}=v_{2}=u_{2}+l*p_{2}=0.96+0.1*0.3=0,99\\)</li>\
+    </ul>",
 
     "Wir berechnen für c das Teilintervall: <br/><b>c = 0,9 + 0,1&times;0,6 = 0,96; v = 0,96 + 0,1&times;0,3 = 0,99</b>",
 
@@ -66,14 +81,31 @@ const lineData = [
 ];
 
 const intervalNumbers = [
-    ["0,0", "1,0", "", "", ""],
-    ["", "", "0,5", "0,6", "0,9"],
-    ["0,9", "1,0", "", "", ""],
-    ["", "", "", "0,96", "0,99"],
-    ["0,96", "0,99", "0,975", "0,978", ""],
-    ["0,975", "0,978", "0,9765", "", ""],
-    ["0,975", "0,9765", "", "", ""]
+    ["0.0", "1.0", "", "", ""],
+    ["", "", "0.5", "0.6", "0.9"],
+    ["0.9", "1.0", "", "", ""],
+    ["", "", "", "0.96", "0.99"],
+    ["0.96", "0.99", "0.975", "0.978", ""],
+    ["0.975", "0.978", "0.9765", "", ""],
+    ["0.975", "0.9765", "", "", ""]
+];
+
+
+const tableData = [
+    [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
+    [["a", "0.5", "0.0", "0.9", "0.95"], ["b", "0.1", "0.5", "0.95", "0.96"], ["c", "0.3", "0.6", "0.96", "0.99"], ["d", "0.1", "0.9", "0.99", "1.0"]],
+
 ]
+
+
+const tableHeader = 
+"\<tr>\
+<th>Buchstabe</th>\
+<th>rel. Häufigkeit</th>\
+<th>kumulative Häufigkeit</th>\
+<th>unteres Limit</th>\
+<th>oberes Limit</th>\
+</tr>"
 
 var animationActions = [
     function () {
@@ -92,50 +124,67 @@ var animationActions = [
         drawText([2, 3, 4, 5, 6, 7, 8]);
         updateExplanation(); 
         updateBarValueText();
-        highlightLetter("d-interval", 1);
+        makeTableVisible();
+        updateTableData();
+        highlightLetter("d-interval", 0);
+        highlightLetter("c-interval", 0);
+    },
+    function() {
+        updateExplanation();
+        highlightLetter("d", 0);
+        removeHighlight("d-interval", 0);
+        removeHighlight("c-interval", 0);
+    },
+    function() {
+        addDiagram();
+        updateExplanation();
+        removeHighlight("d", 0);
+        updateBarValueText();
+        updateTableData();
+        drawLineBetweenDiagrams("max-line-0", "max-line-1");
+        drawLineBetweenDiagrams("d-line-0", "min-line-1");
+    },
+    function() {
+        updateExplanation();
+        updateBarValueText();
         highlightLetter("c-interval", 1);
+        highlightLetter("d-interval", 1);
     },
     function() {
         addDiagram();
         updateExplanation();
-        highlightLetter("d", 1);
-        removeHighlight("d-interval", 1);
+        updateBarValueText();
+        drawLineBetweenDiagrams("d-line-1", "max-line-2");
+        drawLineBetweenDiagrams("c-line-1", "min-line-2");
         removeHighlight("c-interval", 1);
-    },
-    function() {
-        updateExplanation();
-        removeHighlight("d", 1);
-        updateBarValueText();
-        drawLineBetweenDiagrams("max-line-1", "max-line-2");
-        drawLineBetweenDiagrams("d-line-1", "min-line-2");
-    },
-    function() {
-        updateExplanation();
-        updateBarValueText();
+        removeHighlight("d-interval", 1);
+        highlightLetter("b-interval", 2);
         highlightLetter("c-interval", 2);
-        highlightLetter("d-interval", 2);
     },
     function() {
         addDiagram();
         updateExplanation();
         updateBarValueText();
-        drawLineBetweenDiagrams("d-line-2", "max-line-3");
-        drawLineBetweenDiagrams("c-line-2", "min-line-3");
+        removeHighlight("b-interval", 2);
         removeHighlight("c-interval", 2);
-        removeHighlight("d-interval", 2);
+        drawLineBetweenDiagrams("c-line-2", "max-line-3");
+        drawLineBetweenDiagrams("b-line-2", "min-line-3");
+        highlightLetter("min", 3);
         highlightLetter("b-interval", 3);
-        highlightLetter("c-interval", 3);
-    },
-    function() {
-        addDiagram();
-        updateExplanation();
-        updateBarValueText();
-        removeHighlight("b-interval", 3);
-        removeHighlight("c-interval", 3);
-        drawLineBetweenDiagrams("c-line-3", "max-line-4");
-        drawLineBetweenDiagrams("b-line-3", "min-line-4");
-        highlightLetter("min", 4);
-        highlightLetter("b-interval", 4);
         disableAnimationProgress();
     }
-]
+];
+
+function checkQuiz1() {
+    const element = document.getElementById("quiz");
+    const value = element.value;
+    if (value=="") {
+        return;
+    }
+    const span = document.getElementById("quiz-result-1");
+    if (value=="0.9" || value=="0,9" || value==".9" || value==",9") {
+        span.innerHTML = "Richtige Antwort!";
+    } else {
+        span.innerHTML = "Leider falsch, richtig wäre gewesen: 0.9";
+    }
+}

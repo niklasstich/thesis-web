@@ -3,6 +3,38 @@ body {
 }
 h1, p {
     font-family: 'Ubuntu', sans-serif;
+    
+}
+
+h1 {
+    font-size: xx-large;
+}
+
+p {
+    font-size: 1.25rem;
+}
+
+table, td, th {
+    border: 1px solid #ad2300;
+    margin-top: 1vh;
+    font-size: 1.2rem;
+}
+
+th {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+td {
+    text-align: left;
+    padding-left: 9px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+table {
+    border-collapse: collapse;
 }
 
 .navbar-brand {
@@ -35,9 +67,6 @@ nav .active {
 
 body, div#main-content.container-fluid * {
     background-color: #dfdce3;
-}
-p {
-    font-size:xx-large;
 }
 
 span.emphasis {
@@ -79,6 +108,18 @@ svg {
     height:93vh;
     padding: 5px;
     position: relative;
+}
+
+.blurred-text {
+    color: transparent;
+    text-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.noselect {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 ::-webkit-scrollbar {

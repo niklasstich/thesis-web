@@ -2,6 +2,7 @@ let animationIteration = 0;
 let diagramIteration = 0;
 let barValueTextIteration = 0;
 let explanationIteration = 0;
+let tableIteration = 0;
 const updatableTextFields = 5;
 const height = 200;
 const barWidth = 20;
@@ -122,8 +123,9 @@ function resetState() {
     diagramIteration = 0;
     barValueTextIteration = 0;
     explanationIteration = 0;
+    tableIteration = 0;
     enableAnimationProgress();
-    //updateExplanation();
+    resetTable();
     initializePage();
 }
 
@@ -233,21 +235,6 @@ function drawLineBetweenDiagrams(fromLineId, toLineId) {
     svgObject.appendChild(newElement);
 }
 
-function checkQuiz1() {
-    const element = document.getElementById("quiz");
-    const value = element.value;
-    if (value=="") {
-        return;
-    }
-    const span = document.getElementById("quiz-result");
-    if (value=="0.9" || value=="0,9" || value==".9" || value==",9") {
-        span.innerHTML = "Richtige Antwort!";
-    } else {
-        span.innerHTML = "Leider falsch, richtig wäre gewesen: 0,9";
-    }
-    enableAnimationProgress();
-}
-
 function makeTableVisible() {
     const element = document.getElementById("algo-table");
     element.style.visibility = "visible";
@@ -258,3 +245,34 @@ function makeTableInvisible() {
     element.style.visibility = "hidden";
 }
 
+function updateTableData() {
+    const element = document.getElementById("algo-table");
+    const iterationData = tableData[tableIteration];
+    let iterationString = "";
+    iterationData.forEach(row => {
+        let rowString = "<tr>";
+        row.forEach(cell => {
+            rowString += "<td>" + cell + "</td>";
+        });
+        rowString += "</tr>";
+        iterationString += rowString;
+    });
+    element.innerHTML = tableHeader + iterationString;
+    tableIteration++;
+}
+
+function resetTable() {
+    const element = document.getElementById("algo-table");
+    element.innerHTML = "";
+}
+
+function toggleBlur(id) {
+    const element = document.getElementById(id);
+    if (element != null) {
+        if(element.classList.contains("blurred-text")) {
+            element.classList.remove("blurred-text");
+        } else {
+            element.classList.add("blurred-text");
+        }
+    }
+}
