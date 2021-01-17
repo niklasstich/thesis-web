@@ -7,11 +7,11 @@ h1, p {
 }
 
 h1 {
-    font-size: xx-large;
+    font-size: 40px;
 }
 
 p {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
 }
 
 table, td, th {
@@ -38,6 +38,10 @@ table {
 }
 
 .navbar-brand {
+    font-size: 1.6rem;
+}
+
+nav a {
     font-size: 1.4rem;
 }
 
@@ -128,7 +132,8 @@ svg {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {

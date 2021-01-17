@@ -10,6 +10,7 @@ const explanationData = [
     <li>Ein Alphabet <b>\\(A=\\{a, b, c, d\\}\\)</b></li>\
     <li>Auftrittswahrscheinlichkeiten <b>\\(p=\\{0.5, 0.1, 0.3, 0.1\\}\\)</b>. Das Symbol \"a\" tritt also mit einer Wahrscheinlichkeit von 50% auf, das Symbol \"b\" mit einer Wahrscheinlichkeit von 10% usw.</li>\
     <li>Die Nachricht sei: \\(m=`dcba`\\)</li>\
+    <li>Das Alphabet tragen wir in die Tabelle oben ein.</li>\
     </ul>",
 
     "<ul>\
@@ -28,7 +29,7 @@ const explanationData = [
 
     "<ul>\
     <li>Im Diagramm und Tabelle oben wurden die berechneten Werte eingetragen.</li>\
-    <li>Als Beispiel einmal die Berechnung für den Buchstaben 'c'</li>\
+    <li>Als Beispiel einmal die Berechnung für den Buchstaben 'c':</li>\
     <li>\\(l=Max-Min=1.0-0.0=1.0\\)</li>\
     <li>\\(u_{c}=u_{2}=Min+l*\\sum_{i=0}^{n-1} p_i = 0.0+1.0*(0.5+0.1)=0.0+0.6=0.6\\)</li>\
     <li>\\(v_{c}=v_{2}=u_{i}+l*p_{i}=0.6+1.0*0.3=0.9\\)</li>\
@@ -61,7 +62,7 @@ const explanationData = [
 ]
 const textData = [
     [0+82, 199, "Min", "min-"],
-    [0+82, 5, "Max", "max-"],
+    [0+82, 6, "Max", "max-"],
     [0+52, 101, "", "b-interval-"],
     [0+52, 81, "", "c-interval-"],
     [0+52, 21, "", "d-interval-"],
@@ -92,6 +93,7 @@ const intervalNumbers = [
 
 
 const tableData = [
+    [["a", "0.5", "0.0", "", ""], ["b", "0.1", "0.5", "", ""], ["c", "0.3", "0.6", "", ""], ["d", "0.1", "0.9", "", ""]],
     [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
     [["a", "0.5", "0.0", "0.9", "0.95"], ["b", "0.1", "0.5", "0.95", "0.96"], ["c", "0.3", "0.6", "0.96", "0.99"], ["d", "0.1", "0.9", "0.99", "1.0"]],
 
@@ -110,6 +112,9 @@ const tableHeader =
 var animationActions = [
     function () {
         updateExplanation();
+        makeTableVisible();
+        updateTableData();
+
     },
     function () {
         extendSVG();
@@ -124,7 +129,6 @@ var animationActions = [
         drawText([2, 3, 4, 5, 6, 7, 8]);
         updateExplanation(); 
         updateBarValueText();
-        makeTableVisible();
         updateTableData();
         highlightLetter("d-interval", 0);
         highlightLetter("c-interval", 0);

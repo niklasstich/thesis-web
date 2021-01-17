@@ -230,7 +230,7 @@ function drawLineBetweenDiagrams(fromLineId, toLineId) {
     newElement.setAttribute("y1", source.getAttribute("y2"));
     newElement.setAttribute("x2", dest.getAttribute("x1"));
     newElement.setAttribute("y2", dest.getAttribute("y2"));
-    newElement.setAttribute("stroke", "#fa5c28");
+    newElement.setAttribute("stroke", "#ad2300");
     newElement.classList.add("fade-in");
     svgObject.appendChild(newElement);
 }
@@ -271,8 +271,6 @@ function toggleBlur(id) {
     if (element != null) {
         if(element.classList.contains("blurred-text")) {
             element.classList.remove("blurred-text");
-        } else {
-            element.classList.add("blurred-text");
         }
     }
 }
