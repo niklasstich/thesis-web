@@ -6,11 +6,11 @@ const explanationData = [
     <li>Wir wählen dann immer das Subinterval als neues Interval, welches zum nächsten Symbol in unserer Nachricht gehört.</li>\
     </ul>",
 
-    "Erläutern wir dies an einem Beispiel. Gegeben sind:<br/><ul>\
+    "<ul><li>Erläutern wir dies an einem Beispiel. Gegeben sind:<br/></li>\
     <li>Ein Alphabet <b>\\(A=\\{a, b, c, d\\}\\)</b></li>\
     <li>Auftrittswahrscheinlichkeiten <b>\\(p=\\{0.5, 0.1, 0.3, 0.1\\}\\)</b>. Das Symbol \"a\" tritt also mit einer Wahrscheinlichkeit von 50% auf, das Symbol \"b\" mit einer Wahrscheinlichkeit von 10% usw.</li>\
     <li>Die Nachricht sei: \\(m=`dcba`\\)</li>\
-    <li>Das Alphabet tragen wir in die Tabelle oben ein.</li>\
+    <li>Das Alphabet und die Auftrittswahrscheinlichkeiten tragen wir in die Tabelle oben ein.</li>\
     </ul>",
 
     "<ul>\
@@ -37,9 +37,9 @@ const explanationData = [
 
     "<ul>\
     <li>Mit der Nachricht \\(m=`dcba`\\) interessiert uns als erstes das Symbol 'd'</li>\
-    <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\))</li>\
+    <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\)</li>\
     </ul>\
-    Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result-1\"></span>",
+    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result-1\"></span>",
 
     "<ul>\
     <li>Das Teilinterval [0,9;1.0) ist also unser neues Intervall.</li>\
