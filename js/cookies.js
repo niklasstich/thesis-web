@@ -20,6 +20,16 @@ function checkCompleted(index) {
     return retrieveProgress()[index];
 }
 
+//returns as a string how many tasks are completed out of the max tasks
+function countCompleted() {
+    const progress = retrieveProgress();
+    var completed = 0;
+    progress.forEach(element => {
+        if(element=='t') completed++;
+    });
+    return completed + '/' + maxProgress;
+}
+
 //returns the content of the cookie as a proper array instead of a string
 function retrieveProgress(){
     var cookie = getCookie(progressCookieName);
