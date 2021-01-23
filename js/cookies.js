@@ -2,6 +2,11 @@ const cookieExpirationDays = 365;
 const progressCookieName = "questionProgress";
 const maxProgress = 8; //TODO: Adjust this to the correct value of progress that can be made
 
+function updateNavbarProgress() {
+    const elem = document.getElementById("navbar-progress");
+    elem.innerHTML = "Fortschritt: " + countCompleted() + " fertig";
+}
+
 //marks a task as completed in the cookie
 function markCompleted(index){
     if (index >= maxProgress){

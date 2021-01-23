@@ -9,6 +9,7 @@
     <link href="css/style.css" rel="stylesheet"/>
     <script src="js/util.js" defer></script>
     <script src="js/mathproblemsContent.js"></script>
+    <script src="js/cookies.js" defer></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
@@ -19,7 +20,7 @@
       }
     </script>
   </head>
-  <body onload="initializePage()">
+  <body onload="initializePage();updateNavbarProgress()">
     <nav class="navbar navbar-expand-lg" id="navbar">
       <div class="container-fluid" id="navbar-div">
         <a class="navbar-brand" href="/">Arithmetische Kodierung lernen!</a>
@@ -41,6 +42,9 @@
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
           </ul>
+        </div>
+        <div class="navbar-nav ml-auto" id="navbar-progress">
+          asdf
         </div>
       </div>
     </nav>

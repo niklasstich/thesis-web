@@ -8,7 +8,7 @@
     <link href="css/indexStyle.css" rel="stylesheet"/>
     <script src="js/cookies.js" defer></script>
 </head>
-<body>
+<body onload="updateNavbarProgress()">
     <nav class="navbar navbar-expand-lg" id="navbar">
       <div class="container-fluid" id="navbar-div">
         <a class="navbar-brand" href="/">Arithmetische Kodierung lernen!</a>
@@ -31,6 +31,10 @@
             </li>
           </ul>
         </div>
+        <div class="navbar-nav ml-auto" id="navbar-progress">
+          Fortschritt: 
+        </div>
+
       </div>
     </nav>
 
