@@ -15,6 +15,7 @@ function markCompleted(index){
     var progress = retrieveProgress();
     progress[index] = "t";
     updateCookie(progressCookieName, progress);
+    updateNavbarProgress();
 }
 
 //checks if a task is marked as complete in the cookie

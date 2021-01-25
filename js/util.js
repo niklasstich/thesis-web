@@ -176,6 +176,7 @@ function advanceAnimation() {
     enableAnimationProgress();
     animationActions[animationIteration]();
     animationIteration++;
+    updatePageProgress();
 }
 
 function reverseAnimation() {
@@ -184,6 +185,7 @@ function reverseAnimation() {
     while (animationIteration < prevIteration) {
         advanceAnimation();
     }
+    updatePageProgress();
 }
 
 function initializePage() {	
@@ -192,6 +194,7 @@ function initializePage() {
     explanationIteration++;
     makeTableInvisible();
     MathJax.typeset();
+    updatePageProgress();
 }
 
 function changeLetterColor(letter, iteration, color){
@@ -273,4 +276,10 @@ function toggleBlur(id) {
             element.classList.remove("blurred-text");
         }
     }
+}
+
+
+function updatePageProgress() {
+    const element = document.getElementById("page-progress");
+    element.innerHTML = `Schritt: ${animationIteration+1}/${animationActions.length+1}`;
 }

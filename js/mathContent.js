@@ -39,7 +39,7 @@ const explanationData = [
     <li>Mit der Nachricht \\(m=`dcba`\\) interessiert uns als erstes das Symbol 'd'</li>\
     <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\)</li>\
     </ul>\
-    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result-1\"></span>",
+    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\" onkeydown=\"keyQuiz1(event)\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result-1\"></span>",
 
     "<ul>\
     <li>Das Teilinterval [0,9;1.0) ist also unser neues Intervall.</li>\
@@ -50,15 +50,15 @@ const explanationData = [
     <li>\\(v_{c}=v_{2}=u_{2}+l*p_{2}=0.96+0.1*0.3=0,99\\)</li>\
     </ul>",
 
-    "Wir berechnen für c das Teilintervall: <br/><b>c = 0,9 + 0,1&times;0,6 = 0,96; v = 0,96 + 0,1&times;0,3 = 0,99</b>",
-
     "Das Subintervall von c wird wieder unser neues Gesamtinterval.<br/> Wir berechnen das Teilinterval für b, das nächste Symbol und erhalten:<br/>\
     <b>u = 0,96 + 0,03&times;0,5 = 0,975; v = 0,975 + 0,03&times;0,1 = 0,978</b>",
 
     "Im letzten Schritt übernehmen wir wieder das Subintervall von b und berechnen das finale Intervall:<br/>\
     <b>u = 0,975 + 0,003&times;0 = 0,975; v = 0,975 + 0,003&times;0,5 = 0,9765</b><br/>\
     Zu guter Letzt müssen wir uns eine Zahl im Interval aussuchen, die sich im besten Falle leicht mit Binärzahlen darstellen ließe, also idealerweise durch Zahlen der Form 2^i darstellbar ist.<br/>\
-    TODO: Beispielhafte Zerlegung"
+    TODO: Beispielhafte Zerlegung",
+
+    "FILL ME IN"
 ]
 const textData = [
     [0+82, 199, "Min", "min-"],
@@ -110,12 +110,14 @@ const tableHeader =
 </tr>"
 
 var animationActions = [
+    //first click
     function () {
         updateExplanation();
         makeTableVisible();
         updateTableData();
 
     },
+    //second click
     function () {
         extendSVG();
         drawLines([0, 1, 2]);
@@ -124,6 +126,7 @@ var animationActions = [
         updateBarValueText();
         //makeTableVisible(); TODO: uncomment when table is implemented
     },
+    //third click
     function() {
         drawLines([3, 4, 5]);
         drawText([2, 3, 4, 5, 6, 7, 8]);
@@ -133,12 +136,14 @@ var animationActions = [
         highlightLetter("d-interval", 0);
         highlightLetter("c-interval", 0);
     },
+    //fourth click
     function() {
         updateExplanation();
         highlightLetter("d", 0);
         removeHighlight("d-interval", 0);
         removeHighlight("c-interval", 0);
     },
+    //fifth click
     function() {
         addDiagram();
         updateExplanation();
@@ -148,12 +153,14 @@ var animationActions = [
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
         drawLineBetweenDiagrams("d-line-0", "min-line-1");
     },
+    //sixth click
     function() {
         updateExplanation();
         updateBarValueText();
         highlightLetter("c-interval", 1);
         highlightLetter("d-interval", 1);
     },
+    //seventh click
     function() {
         addDiagram();
         updateExplanation();
@@ -165,6 +172,7 @@ var animationActions = [
         highlightLetter("b-interval", 2);
         highlightLetter("c-interval", 2);
     },
+    //eighth click
     function() {
         addDiagram();
         updateExplanation();
@@ -179,16 +187,23 @@ var animationActions = [
     }
 ];
 
+function keyQuiz1(evt) {
+    if (evt.keyCode===13) {
+        checkQuiz1();
+    }
+}
+
 function checkQuiz1() {
     const element = document.getElementById("quiz");
-    const value = element.value;
+    const value = parseFloat(element.value.replace(',', '.'));
     if (value=="") {
         return;
     }
     const span = document.getElementById("quiz-result-1");
-    if (value=="0.9" || value=="0,9" || value==".9" || value==",9") {
+    if (value===0.9) {
         span.innerHTML = "Richtige Antwort!";
     } else {
         span.innerHTML = "Leider falsch, richtig wäre gewesen: 0.9";
     }
+    markCompleted(0);
 }

@@ -14,6 +14,10 @@ p {
     font-size: 1.4rem;
 }
 
+#page-progress {
+    font-size: 1.25rem;
+}
+
 table, td, th {
     border: 1px solid #ad2300;
     margin-top: 1vh;
@@ -137,7 +141,7 @@ svg {
 
 ::-webkit-scrollbar {
     width: 8px;
-    height: 8px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
