@@ -197,6 +197,11 @@ function initializePage() {
     updatePageProgress();
 }
 
+function fillMessageSpan(message){
+    const element = document.getElementById("span-message");
+    element.innerHTML = "Nachricht " + message;
+}
+
 function changeLetterColor(letter, iteration, color){
     const element = document.getElementById(letter + "-" + iteration);
     element.setAttribute("fill", color);

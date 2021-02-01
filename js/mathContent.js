@@ -1,9 +1,10 @@
 const explanationData = [
     "<ul>\
     <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
-    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit \\(\[0;1\)\\)</li>\
+    <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit \\(\[0;1\)\\), die obere Intervallgrenze ist also immer ausgeschlossen.</li>\
     <li>Basierend auf den Auftrittswahrscheinlichkeiten der Symbole im Alphabet wird dieses Intervall in Subintervalle unterteilt.</li>\
     <li>Wir wählen dann immer das Subinterval als neues Interval, welches zum nächsten Symbol in unserer Nachricht gehört.</li>\
+    <li>Wenn alle Zeichen der Nachricht fertig kodiert sind, dann geben wir eine Zahl aus dem finalen Intervall aus.</li>\
     </ul>",
 
     "<ul><li>Erläutern wir dies an einem Beispiel. Gegeben sind:<br/></li>\
@@ -36,10 +37,11 @@ const explanationData = [
     </ul>",
 
     "<ul>\
-    <li>Mit der Nachricht \\(m=`dcba`\\) interessiert uns als erstes das Symbol 'd'</li>\
-    <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\)</li>\
+    <li>Mit der Nachricht \\(m=`dcba`\\) interessiert uns als erstes das Symbol 'd'.</li>\
+    <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\).</li>\
     </ul>\
-    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\" onkeydown=\"keyQuiz1(event)\"><button onclick=\"checkQuiz1()\">Absenden</button><br/><span id=\"quiz-result-1\"></span>",
+    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz1\" onkeydown=\"keyQuiz1(event)\"><button onclick=\"checkQuiz1()\">Absenden</button><br/>\
+    <span id=\"quiz-result-1\"></span>",
 
     "<ul>\
     <li>Das Teilinterval [0,9;1.0) ist also unser neues Intervall.</li>\
@@ -50,8 +52,14 @@ const explanationData = [
     <li>\\(v_{c}=v_{2}=u_{2}+l*p_{2}=0.96+0.1*0.3=0,99\\)</li>\
     </ul>",
 
-    "Das Subintervall von c wird wieder unser neues Gesamtinterval.<br/> Wir berechnen das Teilinterval für b, das nächste Symbol und erhalten:<br/>\
-    <b>u = 0,96 + 0,03&times;0,5 = 0,975; v = 0,975 + 0,03&times;0,1 = 0,978</b>",
+    "<ul>\
+    <li>Nächstes zu codierendes Symbol ist 'c'</li>\
+    <li>Zur Übersichtlichkeit wird nur noch das relevante Symbol in der Grafik angezeigt</li>\
+    <li>Wir übernehmen die berechneten Grenzen für 'c' aus der Tabelle</li>\
+    </ul>\
+    Verständnisfrage: Wäre unsere Nachricht jetzt schon vorbei, also nur 'dc', was könnte ein möglicher Output-Wert des Algorithmus sein?<br>\
+    <input type='text' id='quiz2' onkeydown='keyQuiz2(event)'><button onclick='checkQuiz2()'>Absenden</button><br>\
+    <span id='quiz-result-2'></span>",
 
     "Im letzten Schritt übernehmen wir wieder das Subintervall von b und berechnen das finale Intervall:<br/>\
     <b>u = 0,975 + 0,003&times;0 = 0,975; v = 0,975 + 0,003&times;0,5 = 0,9765</b><br/>\
@@ -115,7 +123,7 @@ var animationActions = [
         updateExplanation();
         makeTableVisible();
         updateTableData();
-
+        fillMessageSpan("m='dcba'");
     },
     //second click
     function () {
@@ -193,17 +201,39 @@ function keyQuiz1(evt) {
     }
 }
 
+function keyQuiz2(evt) {
+    if (evt.keyCode===13) {
+        checkQuiz2();
+    }
+}
+
 function checkQuiz1() {
-    const element = document.getElementById("quiz");
+    const element = document.getElementById("quiz1");
     const value = parseFloat(element.value.replace(',', '.'));
-    if (value=="") {
+    if (value==NaN) {
         return;
     }
     const span = document.getElementById("quiz-result-1");
     if (value===0.9) {
-        span.innerHTML = "Richtige Antwort!";
+        span.innerHTML = "Richtige Antwort! Das Subintervall 'd' wird unser nächstes Intervall, daher muss 0.9 die untere Grenze sein.";
     } else {
-        span.innerHTML = "Leider falsch, richtig wäre gewesen: 0.9";
+        span.innerHTML = "Leider falsch, richtig wäre 0.9 gewesen, denn das ist die untere Subintervallgrenze des Symbols 'd', welches unser nächstes Intervall wird.";
     }
     markCompleted(0);
+}
+
+function checkQuiz2() {
+    const element = document.getElementById("quiz2");
+    const value = parseFloat(element.value.replace(',', '.'));
+    if (value==NaN) {
+        return;
+    }
+    const span = document.getElementById("quiz-result-2");
+    if (value===0.99){
+        span.innerHTML = "Fast richtig! Das Intervall geht zwar von 0.96 bis 0.99, darin ist 0.99 aber <i>nicht enthalten</i>. Daher ist 0.99 falsch, aber z.B. 0.989 wäre richtig!";
+    } else if (value < 0.99 && value >=0.96) {
+        span.innerHTML = "Richtig! Diese Zahl liegt zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) und wäre daher eine richtige Ausgabe des Algorithmus.";
+    } else {
+        span.innerHTML = "Leider falsch. Die Ausgabe des Algorithmus müsste zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) liegen, um korrekt zu sein.";
+    }
 }

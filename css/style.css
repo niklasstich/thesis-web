@@ -1,7 +1,7 @@
 body {
     height: 100vh;
 }
-h1, p {
+h1, p, div, span {
     font-family: 'Ubuntu', sans-serif;
     
 }
@@ -22,6 +22,16 @@ table, td, th {
     border: 1px solid #ad2300;
     margin-top: 1vh;
     font-size: 1.2rem;
+}
+
+#div-persinfo {
+    padding-top: 1vh;
+    padding-bottom: 0.5vh;
+    border-bottom: 1px solid black;
+}
+
+#span-message {
+    font-size: 1.6rem;
 }
 
 th {
