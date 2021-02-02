@@ -77,6 +77,7 @@ nav li {
     background-color: #b3b3b3;
     margin-left: 2px;
     margin-right: 2px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
 }
 
 nav a.navbar-brand {
@@ -147,6 +148,23 @@ svg {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+#message-container {
+    position: absolute;
+    bottom: 5em;
+    left: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    border-radius: 40px;
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.4);
+    width: 100%;
+    max-width: 40em;
+    height: 100%;
+    max-height: 10em;
+    background-color: rgba(173,35,0,0.2);
 }
 
 ::-webkit-scrollbar {

@@ -283,8 +283,18 @@ function toggleBlur(id) {
     }
 }
 
-
 function updatePageProgress() {
     const element = document.getElementById("page-progress");
     element.innerHTML = `Schritt: ${animationIteration+1}/${animationActions.length+1}`;
+}
+
+function showProgressBumper() {
+    const container = document.createElement("div");
+    container.id = "message-container";
+    container.onclick = function(){hide(this)};
+    const content = document.createElement("div");
+    content.id = "message-content";
+    content.innerHTML = "Klick mich, dann verschwinde ich wieder :)";
+    container.appendChild(content);
+    document.body.appendChild(container);
 }

@@ -237,3 +237,7 @@ function checkQuiz2() {
         span.innerHTML = "Leider falsch. Die Ausgabe des Algorithmus müsste zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) liegen, um korrekt zu sein.";
     }
 }
+
+function hide(elem) {
+  elem.parentNode.removeChild(elem);
+}

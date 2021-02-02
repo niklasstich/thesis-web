@@ -44,6 +44,7 @@ nav li {
     background-color: #b3b3b3;
     margin-left: 2px;
     margin-right: 2px;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
 }
 
 nav a.navbar-brand {
