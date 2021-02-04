@@ -16,6 +16,7 @@ function extendSVG() {
     const width = parseInt(viewBox.split(" ")[2])
     const height = parseInt(viewBox.split(" ")[3])
     svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+iterationWidth) + " " + (height));
+    scrollSVGdiv();
 }
 
 function createOrFindGroups(){
@@ -288,13 +289,17 @@ function updatePageProgress() {
     element.innerHTML = `Schritt: ${animationIteration+1}/${animationActions.length+1}`;
 }
 
-function showProgressBumper() {
-    const container = document.createElement("div");
-    container.id = "message-container";
-    container.onclick = function(){hide(this)};
-    const content = document.createElement("div");
-    content.id = "message-content";
-    content.innerHTML = "Klick mich, dann verschwinde ich wieder :)";
-    container.appendChild(content);
-    document.body.appendChild(container);
+function scrollSVGdiv() {
+    if (!$("#autoscroll-check")[0].checked){
+        return;
+    }
+    const element = $("#svg-div")[0];
+    const maxScroll = element.scrollWidth - element.clientWidth;
+    const currScroll = element.scrollLeft;
+    $(element).animate({scrollLeft: maxScroll}, 800, "easeInOutCubic");
+}
+
+function setMessageSpanText(text) {
+    const element = document.getElementById("span-message");
+    element.innerHTML = `Nachricht m='${text}'`;
 }

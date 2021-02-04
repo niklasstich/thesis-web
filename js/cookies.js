@@ -12,10 +12,14 @@ function markCompleted(index){
     if (index >= maxProgress){
         throw "index out of range "+maxProgress;
     }
+    if(checkCompleted(index)){
+        return;
+    }
     var progress = retrieveProgress();
     progress[index] = "t";
     updateCookie(progressCookieName, progress);
     updateNavbarProgress();
+    showProgressBumper(index);
 }
 
 //checks if a task is marked as complete in the cookie
@@ -23,7 +27,7 @@ function checkCompleted(index) {
     if (index >= maxProgress){
         throw "index out of range "+maxProgress;
     }
-    return retrieveProgress()[index];
+    return retrieveProgress()[index]=='t';
 }
 
 //returns as a string how many tasks are completed out of the max tasks
@@ -93,4 +97,15 @@ function getCookie(name) {
 
 function invalidateCookie(name){
     newCookie(name, "", -1);
+}
+
+function showProgressBumper(index) {
+    const container = document.createElement("div");
+    container.id = "message-container";
+    container.onclick = function(){remove(this)};
+    const content = document.createElement("div");
+    content.id = "message-content";
+    content.innerHTML = `Gratulation, du hast Aufgabe ${index+1}/${maxProgress} abgeschlossen! Klick hier, um diese Nachricht zu schließen.`;
+    container.appendChild(content);
+    document.body.appendChild(container);
 }

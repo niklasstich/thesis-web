@@ -1,6 +1,7 @@
 const explanationData = [
-    "<ul>\
-    <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen.</li>\
+    "<h2>Kodierung</h2>\
+    <ul>\
+    <li>Wiederholen wir zunächst die Variante der arithmetischen Kodierung mit Kommazahlen (aus technischen Gründen mit der amerikanischen Schreibweise des Punktes statt des Kommas notiert).</li>\
     <li>Wir operieren auf einem Interval zwischen zwei Kommazahlen, initialisiert mit \\(\[0;1\)\\), die obere Intervallgrenze ist also immer ausgeschlossen.</li>\
     <li>Basierend auf den Auftrittswahrscheinlichkeiten der Symbole im Alphabet wird dieses Intervall in Subintervalle unterteilt.</li>\
     <li>Wir wählen dann immer das Subinterval als neues Interval, welches zum nächsten Symbol in unserer Nachricht gehört.</li>\
@@ -40,16 +41,16 @@ const explanationData = [
     <li>Mit der Nachricht \\(m=`dcba`\\) interessiert uns als erstes das Symbol 'd'.</li>\
     <li>Wir übernehmen für das nächste Intervall also \\(u_{d}\\) als \\(Min\\) und \\(v_{d}\\) als \\(Max\\).</li>\
     </ul>\
-    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz1\" onkeydown=\"keyQuiz1(event)\"><button onclick=\"checkQuiz1()\">Absenden</button><br/>\
-    <span id=\"quiz-result-1\"></span>",
+    Verständnisfrage: Welchen Wert nimmt Min als Nächstes an? <input type=\"text\" id=\"quiz\" onkeydown=\"keyQuiz(event, 1)\"><button id='quiz-btn-1' onclick=\"checkQuiz(this)\">Absenden</button><br/>\
+    <span id=\"quiz-result\"></span>",
 
     "<ul>\
-    <li>Das Teilinterval [0,9;1.0) ist also unser neues Intervall.</li>\
+    <li>Das Teilinterval \\([0.9;1.0)\\) ist also unser neues Intervall.</li>\
     <li>Wir berechnen wieder die Subintervalle nach gleicher Vorgehensweise.</li>\
     <li>Beispielsweise für c, welches wir als nächstes Symbol brauchen:</li>\
     <li>\\(l=1.0-0.9=0.1\\)</li>\
     <li>\\(u_{c}=u_{2}=Min+l*\\sum_{i=0}^{n-1} p_i = 0.9+0.1*0.6 = 0.96\\)</li>\
-    <li>\\(v_{c}=v_{2}=u_{2}+l*p_{2}=0.96+0.1*0.3=0,99\\)</li>\
+    <li>\\(v_{c}=v_{2}=u_{2}+l*p_{2}=0.96+0.1*0.3=0.99\\)</li>\
     </ul>",
 
     "<ul>\
@@ -58,15 +59,60 @@ const explanationData = [
     <li>Wir übernehmen die berechneten Grenzen für 'c' aus der Tabelle</li>\
     </ul>\
     Verständnisfrage: Wäre unsere Nachricht jetzt schon vorbei, also nur 'dc', was könnte ein möglicher Output-Wert des Algorithmus sein?<br>\
-    <input type='text' id='quiz2' onkeydown='keyQuiz2(event)'><button onclick='checkQuiz2()'>Absenden</button><br>\
-    <span id='quiz-result-2'></span>",
+    <input type='text' id='quiz' onkeydown='keyQuiz(event,2)'><button onclick='checkQuiz(2)'>Absenden</button><br>\
+    <span id='quiz-result'></span>",
 
-    "Im letzten Schritt übernehmen wir wieder das Subintervall von b und berechnen das finale Intervall:<br/>\
-    <b>u = 0,975 + 0,003&times;0 = 0,975; v = 0,975 + 0,003&times;0,5 = 0,9765</b><br/>\
-    Zu guter Letzt müssen wir uns eine Zahl im Interval aussuchen, die sich im besten Falle leicht mit Binärzahlen darstellen ließe, also idealerweise durch Zahlen der Form 2^i darstellbar ist.<br/>\
-    TODO: Beispielhafte Zerlegung",
+    "<ul>\
+    <li>Wir übernehmen wieder die Grenzen des Subintervalls von 'c' als Min und Max.</li>\
+    <li>Berechne neue Werte in der Tabelle mit \\(l=0.99-0.96=0.03\\).</li>\
+    <li>Relevantes Symbol ist 'b', also wird unser neues Intervall \\([0.975;0.978)\\).</li>\
+    </ul>",
 
-    "FILL ME IN"
+    "<ul>\
+    <li>Wir sind am letzten Symbol der Nachricht angekommen, zuletzt wird 'a' kodiert.</li>\
+    <li>Min und Max vom vorherigen Zeichen wurden übernommen, neue Werte in der Tabelle berechnet für \\(l=0.978-0.975=0.003\\)</li>\
+    Verständnisfrage: Bitte gebe die obere und untere Grenze des finalen Intervalls ein:<br>\
+    <input type='text' id='quiz1' onkeydown='keyQuiz(event,3)' placeholder='untere Grenze'>&nbsp;<input type='text' id='quiz2' onkeydown='keyQuiz(event,3)' placeholder='obere Grenze'>&nbsp;<button onclick='checkQuiz(3)'>Absenden</button><br>\
+    <span id='quiz-result'></span>\
+    </ul>",
+
+    "<ul>\
+    <li>Wir suchen uns nun also eine Zahl aus dem Intervall aus. Dabei ist zu beachten, dass wir diese Zahl zur Übertragung in eine Binärdarstellung bringen müssen.</li>\
+    <li>Es bietet sich daher an, eine Zahl aus dem Intervall zu wählen, welche sich aus <i>möglichst wenigen Zweierpotenzen</i> darstellen lässt.</li>\
+    <li>Eine effiziente Möglichkeit aus unserem Beispiel wäre \\(0.9755859375\\). Dies ist zunächst konterintuitiv, da man denken würde, dass bspw. \\(0.975\\) ja offensichtlich kürzer ist, und daher weniger Bits zum übertragen benötigt.</li>\
+    <li>Sieht man sich jedoch die Zerlegung der Zahlen in Binärdarstellung an, so erkennt man dass die erste Zahl deutlich kürzer ist:</li>\
+    <li>\\( (0.9755859375)_{10} = (0.1111100111)_2\\)</li>\
+    <li>\\( (0.975)_{10} = (0.1111100110011001101)_2\\)</li>\
+    <li>Die erste Stelle vor dem Punkt können wir uns sparen, da die 1 nie im Intervall \\([0;1)\\) enthalten sein kann, dieses Bit kann daher nie 1 sein.</li>\
+    <li>Wir benötigen daher für die Übertragung der Nachricht 'dcba' in unserem Beispiel also mindestens 10 Bits.</li>\
+    </ul>",
+
+    "<h2>Dekodierung</h2>\
+    <ul>\
+    <li>Die Dekodierung funktioniert fast gleich wie die Kodierung, mit dem Unterschied, dass die Auswahl des Subintervalls (und damit des dekodierten Zeichens) von der erhaltenen Zahl abhängt.</li>\
+    <li>Wir formen die erhaltenen Bits zunächst wieder in eine Dezimalzahl um erhalten unsere Zahl \\(0.9755859375\\) zurück.</li>\
+    <li>Zudem wird Min und Max wieder mit 0 und 1 initialisiert.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Wieder alle Werte für die Subintervalle berechnen und in die Tabelle eintragen.</li>\
+    <li>Da unsere Zahl zwischen 0.9 und 1.0 liegt, geben wir ein 'd' aus und übernehmen das Subintervall.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Wieder Min und Max übernehmen und die Werte in der Tabelle ausrechen.</li>\
+    </ul>\
+    Verständnisfrage: Welcher Buchstabe muss nach den gelernten Regeln folgen?<br>\
+    <button onclick='falseButton()' class='quiz-button'>'a'</button><button onclick='falseButton()' class='quiz-button'>'b'</button><button onclick='correctButton()' class='quiz-button'>'c'</button><button onclick='falseButton()' class='quiz-button'>'d'</button><br>\
+    <span id='quiz-result'></span>",
+
+    "<ul>\
+    <li>Wir stellen mit der selben Methodik fest, dass 'b' und 'a' folgen müssen.</li>\
+    <li>Damit haben wir das Ende der Originalnachricht erreicht.</li>\
+    <li>Jedoch ist aus der Zahl alleine nicht ersichtlich, wann unsere Dekodierung terminieren sollte.</li>\
+    <li>Wir müssen also bei der Übertragung der Nachricht zusätzlich in irgendeiner Form die Länge übermitteln oder ein zusätzliches Zeichen lediglich für die Terminierung des Algorithmus einführen.</li>\
+    <li>Dies ist ein Problem, da es unter Umständen die erreichte Kompressionsrate verringern kann. Weitere Probleme des Algorithmus werden <a href='mathproblems.html'>im nächsten Kapitel aufgezeigt.</a></li>\
+    </ul>"
 ]
 const textData = [
     [0+82, 199, "Min", "min-"],
@@ -104,7 +150,8 @@ const tableData = [
     [["a", "0.5", "0.0", "", ""], ["b", "0.1", "0.5", "", ""], ["c", "0.3", "0.6", "", ""], ["d", "0.1", "0.9", "", ""]],
     [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
     [["a", "0.5", "0.0", "0.9", "0.95"], ["b", "0.1", "0.5", "0.95", "0.96"], ["c", "0.3", "0.6", "0.96", "0.99"], ["d", "0.1", "0.9", "0.99", "1.0"]],
-
+    [["a", "0.5", "0.0", "0.96", "0.975"], ["b", "0.1", "0.5", "0.975", "0.978"], ["c", "0.3", "0.6", "0.978", "0.987"], ["d", "0.1", "0.9", "0.987", "0.99"]],
+    [["a", "0.5", "0.0", "0.975", "0.9765"], ["b", "0.1", "0.5", "0.9765", "0.9768"], ["c", "0.3", "0.6", "0.9768", "0.9777"], ["d", "0.1", "0.9", "0.9777", "0.978"]],
 ]
 
 
@@ -148,7 +195,7 @@ var animationActions = [
     function() {
         updateExplanation();
         highlightLetter("d", 0);
-        removeHighlight("d-interval", 0);
+        highlightLetter("max", 0)
         removeHighlight("c-interval", 0);
     },
     //fifth click
@@ -156,6 +203,8 @@ var animationActions = [
         addDiagram();
         updateExplanation();
         removeHighlight("d", 0);
+        removeHighlight("max", 0);
+        removeHighlight("d-interval", 0);
         updateBarValueText();
         updateTableData();
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
@@ -167,77 +216,198 @@ var animationActions = [
         updateBarValueText();
         highlightLetter("c-interval", 1);
         highlightLetter("d-interval", 1);
+        highlightLetter("c", 1);
     },
     //seventh click
     function() {
         addDiagram();
         updateExplanation();
         updateBarValueText();
+        updateTableData();
         drawLineBetweenDiagrams("d-line-1", "max-line-2");
         drawLineBetweenDiagrams("c-line-1", "min-line-2");
         removeHighlight("c-interval", 1);
         removeHighlight("d-interval", 1);
+        removeHighlight("c", 1)
         highlightLetter("b-interval", 2);
         highlightLetter("c-interval", 2);
+        highlightLetter("b", 2);
     },
     //eighth click
     function() {
         addDiagram();
         updateExplanation();
         updateBarValueText();
+        updateTableData();
         removeHighlight("b-interval", 2);
         removeHighlight("c-interval", 2);
+        removeHighlight("b", 2);
         drawLineBetweenDiagrams("c-line-2", "max-line-3");
         drawLineBetweenDiagrams("b-line-2", "min-line-3");
         highlightLetter("min", 3);
         highlightLetter("b-interval", 3);
-        disableAnimationProgress();
+        highlightLetter("a", 3);
+    },
+    //ninth click
+    function() {
+        updateExplanation();
+    },
+    function() {
+        resetSVG();
+        document.getElementById("span-number").innerHTML = "Zahl: \\(0.9755859375\\)"
+        resetTable();
+        diagramIteration = 0;
+        barValueTextIteration = 0;
+        tableIteration = 0;
+        updateExplanation();
+        extendSVG();
+        setMessageSpanText("");
+        drawLines([0, 1, 2]);
+        drawText([0, 1]);
+        updateBarValueText();
+    },
+    function() {
+        updateExplanation();
+        drawLines([3, 4, 5]);
+        drawText([2, 3, 4, 5, 6, 7, 8]);
+        updateBarValueText();
+        updateTableData();
+        updateTableData();
+        highlightLetter("d", 0);
+        setMessageSpanText("d");
+        highlightLetter("d-interval", 0);
+        highlightLetter("max", 0);
+ 
+    },
+    function() {
+        updateExplanation();
+        removeHighlight("d-interval", 0);
+        removeHighlight("max", 0);
+        addDiagram();
+        updateBarValueText();
+        updateTableData();
+        drawLineBetweenDiagrams("max-line-0", "max-line-1");
+        drawLineBetweenDiagrams("d-line-0", "min-line-1");
+        updateBarValueText();
+        highlightLetter("c-interval", 1);
+        highlightLetter("d-interval", 1);
+        setMessageSpanText("dc");
+    },
+    function() {
+        removeHighlight("c-interval", 1);
+        removeHighlight("d-interval", 1);
+        updateExplanation();
+        addDiagram();
+        updateBarValueText();
+        updateTableData();
+        addDiagram();
+        updateBarValueText();
+        updateTableData();
+        drawLineBetweenDiagrams("d-line-1", "max-line-2");
+        drawLineBetweenDiagrams("c-line-1", "min-line-2");
+        drawLineBetweenDiagrams("c-line-2", "max-line-3");
+        drawLineBetweenDiagrams("b-line-2", "min-line-3");
+        highlightLetter("b", 2);
+        highlightLetter("a", 3);
+        setMessageSpanText("dcba");
     }
+
 ];
 
-function keyQuiz1(evt) {
+const checkQuizDataFunctions = [
+    //quiz1 - min question
+    function() {
+        const value = parseFloat(document.getElementById(`quiz`).value.replace(',', '.'));
+        if (value==NaN) {
+            return;
+        }
+        const span = document.getElementById("quiz-result");
+        if (value===0.9) {
+            span.innerHTML = quizResponseData[0][0];
+        } else {
+            span.innerHTML = quizResponseData[0][1];
+        }
+        markCompleted(0);
+    },
+    //quiz2 - interval question
+    function() {
+        const value = parseFloat(document.getElementById(`quiz`).value.replace(',', '.'));
+        if (value==NaN) {
+            return;
+        }
+        const span = document.getElementById("quiz-result");
+        if (value===0.99){
+            span.innerHTML = quizResponseData[1][0];
+        } else if (value < 0.99 && value >=0.96) {
+            span.innerHTML = quizResponseData[1][1];
+        } else {
+            span.innerHTML = quizResponseData[1][2];
+        }
+        markCompleted(1);
+    },
+    //quiz3 - min and max final interval question
+    function() {
+        const val1 = parseFloat(document.getElementById('quiz1').value.replace(',', '.'));
+        const val2 = parseFloat(document.getElementById('quiz2').value.replace(',', '.'));
+        if (val1==NaN || val2==NaN){
+            return;
+        }
+        const span = document.getElementById("quiz-result");
+        if (val1 !== 0.975 && val2 !== 0.9765) {
+            span.innerHTML = quizResponseData[2][0];
+        } else if (val1 !== 0.975) {
+            span.innerHTML = quizResponseData[2][1];
+        } else if (val2 !== 0.9765) {
+            span.innerHTML = quizResponseData[2][2];
+        } else {
+            span.innerHTML = quizResponseData[2][3];
+        }
+        markCompleted(2);
+    }
+]
+
+const quizResponseData = [
+    ["Richtige Antwort! Das Subintervall 'd' wird unser nächstes Intervall, daher muss 0.9 die untere Grenze sein.",
+    "Leider falsch, richtig wäre 0.9 gewesen, denn das ist die untere Subintervallgrenze des Symbols 'd', welches unser nächstes Intervall wird."],
+
+    ["Fast richtig! Das Intervall geht zwar von 0.96 bis 0.99, darin ist 0.99 aber <i>nicht enthalten</i>. Daher ist 0.99 falsch, aber z.B. 0.989 wäre richtig!",
+    "Richtig! Diese Zahl liegt zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) und wäre daher eine richtige Ausgabe des Algorithmus.",
+    "Leider falsch. Die Ausgabe des Algorithmus müsste zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) liegen, um korrekt zu sein."],
+
+    ["Leider falsch. Da das letzte kodierte Symbol 'a' war, übernehmen wir die Grenzen dieses Subintervalls für unser Ergebnis. Korrekt wäre also 0.975 und 0.9765.",
+    "Die obere Grenze ist korrekt, aber die untere Grenze sollte 0.975 sein, also die untere Grenze des 'a'-Subintervalls.",
+    "Die untere Grenze ist korrekt, aber die obere Grenze sollte 0.9765 sein, also die obere Grenze des 'a'-Subintervalls.",
+    "Richtige Antwort! Das Subintervall des Symbols 'a' ist unser finales Intervall."],
+
+    ["Leider falsch. Richtig wäre 'c' gewesen, da unsere Zahl zwischen 0.96 und 0.99 liegt.", "Richtig! Es muss ein 'c' ausgegeben werden, da unsere Zahl zwischen 0.96 und 0.99 liegt."]
+]
+
+function keyQuiz(evt, id) {
     if (evt.keyCode===13) {
-        checkQuiz1();
+        checkQuiz(id);
     }
 }
 
-function keyQuiz2(evt) {
-    if (evt.keyCode===13) {
-        checkQuiz2();
+function checkQuiz(id) {
+    if(typeof(id)!="number") {
+        id = id.id.match(/(\d+)/)[0];
     }
+    id--;
+    checkQuizDataFunctions[id]();
 }
 
-function checkQuiz1() {
-    const element = document.getElementById("quiz1");
-    const value = parseFloat(element.value.replace(',', '.'));
-    if (value==NaN) {
-        return;
-    }
-    const span = document.getElementById("quiz-result-1");
-    if (value===0.9) {
-        span.innerHTML = "Richtige Antwort! Das Subintervall 'd' wird unser nächstes Intervall, daher muss 0.9 die untere Grenze sein.";
-    } else {
-        span.innerHTML = "Leider falsch, richtig wäre 0.9 gewesen, denn das ist die untere Subintervallgrenze des Symbols 'd', welches unser nächstes Intervall wird.";
-    }
-    markCompleted(0);
+function remove(elem) {
+    elem.parentNode.removeChild(elem);
 }
 
-function checkQuiz2() {
-    const element = document.getElementById("quiz2");
-    const value = parseFloat(element.value.replace(',', '.'));
-    if (value==NaN) {
-        return;
-    }
-    const span = document.getElementById("quiz-result-2");
-    if (value===0.99){
-        span.innerHTML = "Fast richtig! Das Intervall geht zwar von 0.96 bis 0.99, darin ist 0.99 aber <i>nicht enthalten</i>. Daher ist 0.99 falsch, aber z.B. 0.989 wäre richtig!";
-    } else if (value < 0.99 && value >=0.96) {
-        span.innerHTML = "Richtig! Diese Zahl liegt zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) und wäre daher eine richtige Ausgabe des Algorithmus.";
-    } else {
-        span.innerHTML = "Leider falsch. Die Ausgabe des Algorithmus müsste zwischen 0.96 (eingeschlossen) und 0.99 (ausgeschlossen) liegen, um korrekt zu sein.";
-    }
+function falseButton() {
+    const element = document.getElementById("quiz-result");
+    element.innerHTML = quizResponseData[3][0];
+    markCompleted(3);
 }
 
-function hide(elem) {
-  elem.parentNode.removeChild(elem);
+function correctButton() {
+    const element = document.getElementById("quiz-result");
+    element.innerHTML = quizResponseData[3][1];
+    markCompleted(3);
 }

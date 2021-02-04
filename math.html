@@ -11,6 +11,8 @@
     <script src="js/mathContent.js" defer></script>
     <script src="js/cookies.js" defer></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" defer></script>
+    <script src="js/jqueryui/jquery-ui.js" defer></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
       MathJax = {
@@ -56,8 +58,9 @@
           <button onclick="reverseAnimation()" id="button-back">Zurück</button>
           <button onclick="advanceAnimation()" id="button-forward">Weiter</button>
           <button onclick="resetState()" id="button-reset">Zurück zum Anfang</button>
+          <input type="checkbox" id="autoscroll-check" checked="true"><label for="autoscroll-check">Autoscroll</label>
           <div id="div-persinfo">
-            <span id="span-message"></span>
+            <span id="span-message"></span>&nbsp;<span id="span-number"></span>
             <table id="algo-table" style="visibility: hidden;">
             </table>
           </div>
