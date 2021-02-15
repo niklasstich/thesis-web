@@ -113,11 +113,6 @@ span.emphasis {
     font-size: 5pt;
 }
 
-svg rect {
-    fill: turquoise;
-    fill-opacity: "0.1";
-}
-
 foreignObject * {
     pointer-events: none;
 }
@@ -141,6 +136,10 @@ svg {
     height:92vh;
     padding: 5px;
     position: relative;
+}
+
+svg line {
+    stroke-width: 0.6;
 }
 
 .blurred-text {
@@ -173,16 +172,56 @@ svg {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #dfdfdf;
+    background: #6b6b6b;
+    border: solid 2px rgba(33,33,33,0.5);
 }
 
 ::-webkit-scrollbar-thumb {
     background: #941e00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #750400;
+}
+
+/* Buttons */
+::-webkit-scrollbar-button
+{
+    border-style: solid;
+    height: 16px;
+    width: 16px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+/* Left */
+::-webkit-scrollbar-button:horizontal:decrement
+{
+    border-width: 7px 14px 7px 0;
+    border-color: transparent #404040 transparent transparent;
+}
+
+::-webkit-scrollbar-button:horizontal:decrement:hover
+{
+    border-color: transparent #505050 transparent transparent;
+}
+
+
+/* Right */
+::-webkit-scrollbar-button:horizontal:increment
+{
+    border-width: 7px 0 7px 14px;
+    border-color: transparent transparent transparent #404040;
+}
+
+::-webkit-scrollbar-button:horizontal:increment:hover
+{
+    border-color: transparent transparent transparent #505050;
 }
 
 .fade-in {

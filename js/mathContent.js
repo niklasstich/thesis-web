@@ -26,7 +26,7 @@ const explanationData = [
     \\(v=_{i}u_{i}+l*p_{i}\\).</br>\
     Die obere Grenze des letzten Symbols im Alphabet ist demnach \\(Max\\)</li>\
     <li>Denkanstoß: Warum muss man lediglich einmal \\(u_{0}\\) berechnen und danach nur noch \\(v_{n-1}\\)?</br>\
-    Antwort: <span class=\"blurred-text noselect\" id=\"blurr-1\" onclick=\"toggleBlur(\'blurr-1\')\">Das liegt daran, dass \\(v_{i}=u_{i+1}\\) und wir somit \\(u_{i+1}\\) nicht mehr berechnen müssen, wenn wir schon \\(v_{i}\\) kennen.</span></li>\
+    Antwort: <span class=\"blurred-text noselect\" id=\"blurr-1\" onclick=\"toggleBlur(\'blurr-1\')\">Das liegt daran, dass \\(v_{i}=u_{i+1}\\) und wir somit \\(u_{i+1}\\) nicht mehr berechnen müssen, wenn wir schon \\(v_{i}\\) kennen.</span> Klicke auf den Text, nachdem du über die Frage nachgedacht hast.</li>\
     </ul>",
 
     "<ul>\
@@ -102,7 +102,7 @@ const explanationData = [
     "<ul>\
     <li>Wieder Min und Max übernehmen und die Werte in der Tabelle ausrechen.</li>\
     </ul>\
-    Verständnisfrage: Welcher Buchstabe muss nach den gelernten Regeln folgen?<br>\
+    Verständnisfrage: Welcher Buchstabe muss nach den gelernten Regeln auf 'd' folgen?<br>\
     <button onclick='falseButton()' class='quiz-button'>'a'</button><button onclick='falseButton()' class='quiz-button'>'b'</button><button onclick='correctButton()' class='quiz-button'>'c'</button><button onclick='falseButton()' class='quiz-button'>'d'</button><br>\
     <span id='quiz-result'></span>",
 
@@ -165,14 +165,12 @@ const tableHeader =
 </tr>"
 
 var animationActions = [
-    //first click
     function () {
         updateExplanation();
         makeTableVisible();
         updateTableData();
         fillMessageSpan("m='dcba'");
     },
-    //second click
     function () {
         extendSVG();
         drawLines([0, 1, 2]);
@@ -181,7 +179,6 @@ var animationActions = [
         updateBarValueText();
         //makeTableVisible(); TODO: uncomment when table is implemented
     },
-    //third click
     function() {
         drawLines([3, 4, 5]);
         drawText([2, 3, 4, 5, 6, 7, 8]);
@@ -191,14 +188,12 @@ var animationActions = [
         highlightLetter("d-interval", 0);
         highlightLetter("c-interval", 0);
     },
-    //fourth click
     function() {
         updateExplanation();
         highlightLetter("d", 0);
         highlightLetter("max", 0)
         removeHighlight("c-interval", 0);
     },
-    //fifth click
     function() {
         addDiagram();
         updateExplanation();
@@ -210,7 +205,6 @@ var animationActions = [
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
         drawLineBetweenDiagrams("d-line-0", "min-line-1");
     },
-    //sixth click
     function() {
         updateExplanation();
         updateBarValueText();
@@ -218,7 +212,6 @@ var animationActions = [
         highlightLetter("d-interval", 1);
         highlightLetter("c", 1);
     },
-    //seventh click
     function() {
         addDiagram();
         updateExplanation();
@@ -233,7 +226,6 @@ var animationActions = [
         highlightLetter("c-interval", 2);
         highlightLetter("b", 2);
     },
-    //eighth click
     function() {
         addDiagram();
         updateExplanation();
@@ -248,17 +240,17 @@ var animationActions = [
         highlightLetter("b-interval", 3);
         highlightLetter("a", 3);
     },
-    //ninth click
     function() {
         updateExplanation();
     },
     function() {
-        resetSVG();
-        document.getElementById("span-number").innerHTML = "Zahl: \\(0.9755859375\\)"
+        //RESET
         resetTable();
         diagramIteration = 0;
         barValueTextIteration = 0;
         tableIteration = 0;
+        resetSVG();
+        document.getElementById("span-number").innerHTML = "Zahl: \\(0.9755859375\\)"
         updateExplanation();
         extendSVG();
         setMessageSpanText("");
