@@ -1,9 +1,10 @@
-body {
+html, body {
     height: 100vh;
+    overflow: hidden;
 }
+
 h1, p, div, span {
     font-family: 'Ubuntu', sans-serif;
-    
 }
 
 h1 {
@@ -107,6 +108,11 @@ span.emphasis {
 
 .draggable {
     cursor: move;
+}
+
+.separate-scroll {
+    overflow-y: scroll;
+    height: 93vh;
 }
 
 .diagram-text  {
@@ -222,6 +228,32 @@ svg line {
 ::-webkit-scrollbar-button:horizontal:increment:hover
 {
     border-color: transparent transparent transparent #505050;
+}
+
+
+/* Up */
+::-webkit-scrollbar-button:vertical:decrement
+{
+  border-width: 0 7px 14px 7px;
+  border-color: transparent transparent #404040 transparent;
+}
+
+::-webkit-scrollbar-button:vertical:decrement:hover
+{
+  border-color: transparent transparent #505050 transparent;
+}
+
+
+/* Down */
+::-webkit-scrollbar-button:vertical:increment
+{
+  border-width: 14px 7px 0 7px;
+  border-color: #404040 transparent transparent transparent;
+}
+
+::-webkit-scrollbar-button:vertical:increment:hover
+{
+  border-color: #505050 transparent transparent transparent;
 }
 
 .fade-in {
