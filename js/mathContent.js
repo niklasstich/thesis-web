@@ -148,10 +148,10 @@ const intervalNumbers = [
 
 const tableData = [
     [["a", "0.5", "0.0", "", ""], ["b", "0.1", "0.5", "", ""], ["c", "0.3", "0.6", "", ""], ["d", "0.1", "0.9", "", ""]],
-    [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
-    [["a", "0.5", "0.0", "0.9", "0.95"], ["b", "0.1", "0.5", "0.95", "0.96"], ["c", "0.3", "0.6", "0.96", "0.99"], ["d", "0.1", "0.9", "0.99", "1.0"]],
-    [["a", "0.5", "0.0", "0.96", "0.975"], ["b", "0.1", "0.5", "0.975", "0.978"], ["c", "0.3", "0.6", "0.978", "0.987"], ["d", "0.1", "0.9", "0.987", "0.99"]],
-    [["a", "0.5", "0.0", "0.975", "0.9765"], ["b", "0.1", "0.5", "0.9765", "0.9768"], ["c", "0.3", "0.6", "0.9768", "0.9777"], ["d", "0.1", "0.9", "0.9777", "0.978"]],
+    [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.0</span>", "<span class='fading-emphasis'>0.5</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.5</span>", "<span class='fading-emphasis'>0.6</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.6</span>", "<span class='fading-emphasis'>0.9</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>1.0</span>"]],
+    [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>0.95</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.95</span>", "<span class='fading-emphasis'>0.96</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.99</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.99</span>", "<span class='fading-emphasis'>1.0</span>"]],
+    [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.975</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.978</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.978</span>", "<span class='fading-emphasis'>0.987</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.987</span>", "<span class='fading-emphasis'>0.99</span>"]],
+    [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.9765</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.9765</span>", "<span class='fading-emphasis'>0.9768</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.9768</span>", "<span class='fading-emphasis'>0.9777</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.9777</span>", "<span class='fading-emphasis'>0.978</span>"]],
 ]
 
 

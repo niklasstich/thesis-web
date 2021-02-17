@@ -1,28 +1,29 @@
---Spoilertext Hinweis klick = sichtbar--
 Unterschiedliche Farben bei der Berechnung und Formeln farbig machen
-Länge l im Diagramm sichtbar machen
+Länge l im Diagramm sichtbar machen -- Klammer muss dünner und kleiner, SVG editor?
 Erst die Erklärung, dann die Formeln. Im Diagramm erklären, wie untere Grenzen vom Subintervall zustande kommen und Zusammenhang zur kumulativen Häufigkeit
 Kürzeres Beispiel mit einfacheren Zahlen und Unterteilung in ein Diagramm.
 Text kürzen (am Ende!)
 Vektorenzeichnen mit Vorgegebenem Vektorfuß und Zusammensetzung, mehrfarbig!!
---Scrollbalken und Schiene Farben ändern--
 Quizzes müssen anders gepaced sein
 Schritt 13 oben steht schon die Antwort
-Tabelle Änderungen visuell markieren
---Diagramm Kontraste verringern, dünnere Linien--
 "Abgrenzung zur anderen Arbeiten" anfangen zu schreiben
 
 Option Radikalschlag: Text weg, nur Diagramm, Sätze einstreuen! So ähnlich wie Tiptoi?
 
+Fertig:
+--Spoilertext Hinweis klick = sichtbar--
+--Scrollbalken und Schiene Farben ändern--
+--Diagramm Kontraste verringern, dünnere Linien--
+--Tabelle Änderungen visuell markieren--
 
 
 
-
-
-
-TTS: Google Cloud TTS engine https://cloud.google.com/text-to-speech/docs/voices
+TTS: 
+Google Cloud TTS engine https://cloud.google.com/text-to-speech/docs/voices
 Gut klingen: de-DE-Wavenet B, D, E, F oder de-DE-Standard B, F
 Amazon AWS hat lästige Registrierung
 Microsoft Katja klingt klasse, aber Rate Limit könnte tatsächlich etwas niedrig sein. (1 Concurrent Request, 5 Millionen Characters free (Standard) bzw. 500k free (neural))
 Bei Google flat 4 Millionen für non-WaveNet, 1 Million für WaveNet
 Eventuell Puffer-Service dazwischen klemmen?
+
+Überall scheiß Kreditkarte notwendig zur Registrierung >:(

@@ -102,6 +102,16 @@ span.emphasis {
     color:red;
 }
 
+@keyframes fadingred {
+    from {color:red}
+    to {color: black}
+}
+
+span.fading-emphasis {
+    animation-name: fadingred;
+    animation-duration: 10s;
+}
+
 .static {
     cursor: not-allowed;
 }

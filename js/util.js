@@ -8,6 +8,8 @@ const height = 200;
 const barWidth = 20;
 const iterationWidth = 120;
 
+const bracketSVG = "/img/curlybracket_right.svg";
+
 function extendSVG() {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
@@ -29,7 +31,7 @@ function createOrFindGroups(){
         const lineGroup = svgDoc.getElementById("line-group-"+diagramIteration);
         const textGroup = svgDoc.getElementById("text-group-"+diagramIteration);
         const barGroup = svgDoc.getElementById("bar-group-"+diagramIteration);
-        return [lineGroup, textGroup, barGroup];
+        return [lineGroup, textGroup, barGroup, metaGroup];
     }
     //didn't find metagroup, so create all groups and add them to the svg
     let group = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -45,7 +47,7 @@ function createOrFindGroups(){
     group.appendChild(lineGroup);
     group.appendChild(textGroup);
     svgObject.appendChild(group);
-    return [lineGroup, textGroup, barGroup];
+    return [lineGroup, textGroup, barGroup, metaGroup];
 }
 
 //Prints all lines found in lineData that are specified in indices
@@ -55,7 +57,7 @@ function drawLines(indices) {
     const viewBox = svgObject.getAttributeNS(null, "viewBox");
     const width = parseInt(viewBox.split(" ")[2])-iterationWidth;
     const height = parseInt(viewBox.split(" ")[3])
-    const [lineGroup, textGroup, barGroup] = createOrFindGroups();
+    const [lineGroup, textGroup, barGroup, _] = createOrFindGroups();
     // draw lines
     indices.forEach(index => {
         const element = lineData[index];
@@ -78,7 +80,7 @@ function drawText(indices) {
     const viewBox = svgObject.getAttributeNS(null, "viewBox");
     const width = parseInt(viewBox.split(" ")[2])-iterationWidth;
     const height = parseInt(viewBox.split(" ")[3])
-    const [lineGroup, textGroup, barGroup] = createOrFindGroups();
+    const [lineGroup, textGroup, barGroup, _] = createOrFindGroups();
     indices.forEach(index => {
         const element = textData[index];
         let newShape = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text")
@@ -91,6 +93,37 @@ function drawText(indices) {
         textGroup.appendChild(newShape);
     });
 }
+
+function drawLengthBracket(length) {
+    const offsetx = 5;
+    //bracket
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    const metaGroup = createOrFindGroups()[3];
+    const middleLine = svgDoc.getElementById(`middle-line-${diagramIteration}`);
+    const maxLine = svgDoc.getElementById(`max-line-${diagramIteration}`);
+    const bracketposx = parseInt(maxLine.getAttribute("x2"), 10) + offsetx;
+    const bracketposy = parseInt(maxLine.getAttribute("y2"), 10);
+    const height = parseInt(middleLine.getAttribute("y2"), 10) - parseInt(middleLine.getAttribute("y1"), 10);
+    const width = height/4;
+    let bracketElement = svgDoc.createElementNS("http://www.w3.org/2000/svg", "image");
+    bracketElement.setAttribute("x", bracketposx);
+    bracketElement.setAttribute("y", bracketposy);
+    bracketElement.setAttribute("height", height);
+    bracketElement.setAttribute("width", width);
+    bracketElement.setAttribute("href", bracketSVG);
+    bracketElement.setAttribute("opacity", "0.5");
+    metaGroup.appendChild(bracketElement);
+    //text
+    const textposx = bracketposx + width;
+    const textposy = bracketposy + height/2;
+    let textElement = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text");
+    textElement.setAttribute("x", textposx);
+    textElement.setAttribute("y", textposy);
+    textElement.textContent = `l = length`;
+    metaGroup.appendChild(textElement);
+}
+
 function addDiagram() {
     diagramIteration++;
     // get svg
