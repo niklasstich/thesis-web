@@ -11,7 +11,7 @@ const iterationWidth = 120;
 const bracketSVG = "/img/curlybracket_right_slim_verythin.svg";
 
 //expands the svg size to make room for another iteration
-function extendSVG() {
+function extendSVG(replay) {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
     // make room for new diagram
@@ -19,7 +19,9 @@ function extendSVG() {
     const width = parseInt(viewBox.split(" ")[2])
     const height = parseInt(viewBox.split(" ")[3])
     svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+iterationWidth) + " " + (height));
-    scrollSVGdiv();
+    if(!replay){
+        scrollSVGdiv();
+    }
 }
 
 //finds or creates the groups lineGroup, textGroup, barGroup and metaGroup for the current diagramIteration and returns them
@@ -132,7 +134,7 @@ function drawLengthBracket(length) {
 }
 
 //adds a new line diagram with data from lineData and textData
-function addDiagram() {
+function addDiagram(replay) {
     diagramIteration++;
     // get svg
     const svgObject = document.getElementById("svg");
@@ -140,7 +142,7 @@ function addDiagram() {
     const viewBox = svgObject.getAttributeNS(null, "viewBox");
     const width = parseInt(viewBox.split(" ")[2])
     const height = parseInt(viewBox.split(" ")[3])
-    extendSVG();
+    extendSVG(replay);
     drawLines([...lineData.keys()]);
     drawText([...textData.keys()]);
 }
@@ -214,9 +216,9 @@ function createBar(iteration, upperY, lowerY) {
 }
 
 //advances animation by one
-function advanceAnimation() {
+function advanceAnimation(replay) {
     enableAnimationProgress();
-    animationActions[animationIteration]();
+    animationActions[animationIteration](replay);
     animationIteration++;
     updatePageProgress();
 }
@@ -226,8 +228,9 @@ function reverseAnimation() {
     const prevIteration = animationIteration - 1;
     resetState();
     while (animationIteration < prevIteration) {
-        advanceAnimation();
+        advanceAnimation(true);
     }
+    scrollSVGdiv();
     updatePageProgress();
 }
 

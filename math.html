@@ -16,8 +16,12 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
       MathJax = {
+        loader: {
+          load: ['[tex]/color']
+        },
         tex: {
-          inlineMath: [['\\(', '\\)']]
+          inlineMath: [['\\(', '\\)']],
+          packages: {'[+]': ['color']}
         }
       }
     </script>
@@ -63,7 +67,7 @@
           <h1>Mathematische Grundlagen der arithmetischen Kodierung</h1>
           <span id="page-progress">Schritt 1/?</span><br>
           <button onclick="reverseAnimation()" id="button-back">Zurück</button>
-          <button onclick="advanceAnimation()" id="button-forward">Weiter</button>
+          <button onclick="advanceAnimation(false)" id="button-forward">Weiter</button>
           <button onclick="resetState()" id="button-reset">Zurück zum Anfang</button>
           <input type="checkbox" id="autoscroll-check" checked="true"><label for="autoscroll-check">Autoscroll</label>
           <div id="div-persinfo">

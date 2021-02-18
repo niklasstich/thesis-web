@@ -23,18 +23,18 @@ const explanationData = [
     \\(u_{i}=Min+l*\\sum_{j=0}^{i-1} p_j\\)</br>\
     Die untere Grenze des ersten Symbols ist gleich \\(Min\\)\</li>\
     <li>Die obere Grenze ergibt sich aus der unteren Grenze plus der Länge des aktuellen Intervalls mal der Auftrittswahrscheinlichkeit:\
-    \\(v=_{i}u_{i}+l*p_{i}\\).</br>\
+    \\(v_{i}=u_{i}+l*p_{i}\\).</br>\
     Die obere Grenze des letzten Symbols im Alphabet ist demnach \\(Max\\)</li>\
     <li>Denkanstoß: Warum muss man lediglich einmal \\(u_{0}\\) berechnen und danach nur noch \\(v_{n-1}\\)?</br>\
-    Antwort: <span class=\"blurred-text noselect\" id=\"blurr-1\" onclick=\"toggleBlur(\'blurr-1\')\">Das liegt daran, dass \\(v_{i}=u_{i+1}\\) und wir somit \\(u_{i+1}\\) nicht mehr berechnen müssen, wenn wir schon \\(v_{i}\\) kennen.</span> Klicke auf den Text, nachdem du über die Frage nachgedacht hast.</li>\
+    Antwort: <span class=\"blurred-text noselect\" id=\"blurr-1\" onclick=\"toggleBlur(\'blurr-1\')\">Das liegt daran, dass \\(v_{i}=u_{i+1}\\) und wir somit \\(u_{i+1}\\) nicht mehr berechnen müssen, wenn wir schon \\(v_{i}\\) kennen.</span> (Klicke auf den Text, nachdem du über die Frage nachgedacht hast.)</li>\
     </ul>",
 
     "<ul>\
     <li>Im Diagramm und Tabelle oben wurden die berechneten Werte eingetragen.</li>\
-    <li>Als Beispiel einmal die Berechnung für den Buchstaben 'c':</li>\
-    <li>\\(l=Max-Min=1.0-0.0=1.0\\)</li>\
-    <li>\\(u_{c}=u_{2}=Min+l*\\sum_{i=0}^{n-1} p_i = 0.0+1.0*(0.5+0.1)=0.0+0.6=0.6\\)</li>\
-    <li>\\(v_{c}=v_{2}=u_{i}+l*p_{i}=0.6+1.0*0.3=0.9\\)</li>\
+    <li>Als Beispiel einmal die Berechnung für den Buchstaben '<span class='purple'>c</span>':</li>\
+    <li>\\(l=Max-Min=1.0-0.0=\\textcolor{red}{1.0}\\)</li>\
+    <li>\\(u_{c}=u_{2}=Min+\\textcolor{red}{l}*\\textcolor{orange}{\\sum_{i=0}^{n-1} p_i} = 0.0+\\textcolor{red}{1.0}*\\textcolor{orange}{(0.5+0.1)}=0.0+0.6=\\textcolor{green}{0.6}\\)</li>\
+    <li>\\(v_{c}=v_{2}=\\textcolor{green}{u_{i}}+\\textcolor{red}{l}*\\textcolor{#ff00ff}{p_{i}}=\\textcolor{green}{0.6}+\\textcolor{red}{1.0}*\\textcolor{#ff00ff}{0.3}=\\textcolor{blue}{0.9}\\)</li>\
     </ul>",
 
     "<ul>\
@@ -149,6 +149,8 @@ const intervalNumbers = [
 const tableData = [
     [["a", "0.5", "0.0", "", ""], ["b", "0.1", "0.5", "", ""], ["c", "0.3", "0.6", "", ""], ["d", "0.1", "0.9", "", ""]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.0</span>", "<span class='fading-emphasis'>0.5</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.5</span>", "<span class='fading-emphasis'>0.6</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.6</span>", "<span class='fading-emphasis'>0.9</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>1.0</span>"]],
+    [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["<span class='purple'>c</span>", "<span class='fuchsia'>0.3</span>", "<span class='orange'>0.6</span>", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
+    [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>0.95</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.95</span>", "<span class='fading-emphasis'>0.96</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.99</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.99</span>", "<span class='fading-emphasis'>1.0</span>"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.975</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.978</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.978</span>", "<span class='fading-emphasis'>0.987</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.987</span>", "<span class='fading-emphasis'>0.99</span>"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.9765</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.9765</span>", "<span class='fading-emphasis'>0.9768</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.9768</span>", "<span class='fading-emphasis'>0.9777</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.9777</span>", "<span class='fading-emphasis'>0.978</span>"]],
@@ -165,37 +167,42 @@ const tableHeader =
 </tr>"
 
 var animationActions = [
-    function () {
+    function (_) {
         updateExplanation();
         makeTableVisible();
         updateTableData();
         setMessageSpanText("'dcba'");
     },
-    function () {
-        extendSVG();
+    function (replay) {
+        extendSVG(replay);
         drawLines([0, 1, 2]);
         drawText([0, 1]);
         updateExplanation();
         updateIntervalText();
-        //makeTableVisible(); TODO: uncomment when table is implemented
+        updateTableData();
+        drawLengthBracket(1);
     },
-    function() {
+    function(_) {
         drawLines([3, 4, 5]);
         drawText([2, 3, 4, 5, 6, 7, 8]);
         updateExplanation(); 
         updateIntervalText();
+        changeLetterColor("c-interval", 0, "green");
+        changeLetterColor("d-interval", 0, "blue");
+        changeLetterColor("bracket-text", 0, "red");
         updateTableData();
-        highlightLetter("d-interval", 0);
-        highlightLetter("c-interval", 0);
     },
-    function() {
+    function(_) {
         updateExplanation();
         highlightLetter("d", 0);
-        highlightLetter("max", 0)
+        highlightLetter("max", 0);
+        changeLetterColor("d-interval", 0, "red");
         removeHighlight("c-interval", 0);
+        updateTableData();
+        fadeSVGElement("bracket-0", "bracket-text-0");
     },
-    function() {
-        addDiagram();
+    function(replay) {
+        addDiagram(replay);
         updateExplanation();
         removeHighlight("d", 0);
         removeHighlight("max", 0);
@@ -205,15 +212,15 @@ var animationActions = [
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
         drawLineBetweenDiagrams("d-line-0", "min-line-1");
     },
-    function() {
+    function(_) {
         updateExplanation();
         updateIntervalText();
         highlightLetter("c-interval", 1);
         highlightLetter("d-interval", 1);
         highlightLetter("c", 1);
     },
-    function() {
-        addDiagram();
+    function(replay) {
+        addDiagram(replay);
         updateExplanation();
         updateIntervalText();
         updateTableData();
@@ -226,8 +233,8 @@ var animationActions = [
         highlightLetter("c-interval", 2);
         highlightLetter("b", 2);
     },
-    function() {
-        addDiagram();
+    function(replay) {
+        addDiagram(replay);
         updateExplanation();
         updateIntervalText();
         updateTableData();
@@ -240,10 +247,10 @@ var animationActions = [
         highlightLetter("b-interval", 3);
         highlightLetter("a", 3);
     },
-    function() {
+    function(_) {
         updateExplanation();
     },
-    function() {
+    function(replay) {
         //RESET
         resetTable();
         diagramIteration = 0;
@@ -252,13 +259,13 @@ var animationActions = [
         resetSVG();
         document.getElementById("span-number").innerHTML = "Zahl: \\(0.9755859375\\)"
         updateExplanation();
-        extendSVG();
+        extendSVG(replay);
         setMessageSpanText("");
         drawLines([0, 1, 2]);
         drawText([0, 1]);
         updateIntervalText();
     },
-    function() {
+    function(_) {
         updateExplanation();
         drawLines([3, 4, 5]);
         drawText([2, 3, 4, 5, 6, 7, 8]);
@@ -271,11 +278,11 @@ var animationActions = [
         highlightLetter("max", 0);
  
     },
-    function() {
+    function(replay) {
         updateExplanation();
         removeHighlight("d-interval", 0);
         removeHighlight("max", 0);
-        addDiagram();
+        addDiagram(replay);
         updateIntervalText();
         updateTableData();
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
@@ -283,13 +290,13 @@ var animationActions = [
         updateIntervalText();
         highlightLetter("c-interval", 1);
         highlightLetter("d-interval", 1);
-        setMessageSpanText("dc");
+        setMessageSpanText("d<span class='blurred-text' id='blurred-c'>c</span>");
     },
-    function() {
+    function(replay) {
         removeHighlight("c-interval", 1);
         removeHighlight("d-interval", 1);
         updateExplanation();
-        addDiagram();
+        addDiagram(replay);
         updateIntervalText();
         updateTableData();
         addDiagram();
@@ -396,10 +403,17 @@ function falseButton() {
     const element = document.getElementById("quiz-result");
     element.innerHTML = quizResponseData[3][0];
     markCompleted(3);
+    unblurMessage();
 }
 
 function correctButton() {
     const element = document.getElementById("quiz-result");
     element.innerHTML = quizResponseData[3][1];
     markCompleted(3);
+    unblurMessage();
+}
+
+function unblurMessage() {
+    const element = document.getElementById("blurred-c");
+    element.classList.remove("blurred-text");
 }

@@ -1,5 +1,6 @@
 html, body {
     height: 100vh;
+    width: 100vw;
     overflow: hidden;
 }
 
@@ -102,6 +103,38 @@ span.emphasis {
     color:red;
 }
 
+span.purple {
+    color: purple;
+}
+
+span.green {
+    color: green;
+}
+
+span.blue {
+    color: blue;
+}
+
+span.red {
+    color: red;
+}
+
+span.yellow {
+    color: yellow
+}
+
+span.turquise {
+    color: #40e0d0;
+}
+
+span.orange {
+    color: orange;
+}
+
+span.fuchsia {
+    color: #f0f;
+}
+
 @keyframes fadingred {
     from {color:red}
     to {color: black}
@@ -160,7 +193,7 @@ svg line {
 
 .blurred-text {
     color: transparent;
-    text-shadow: 0 0 15px rgba(0,0,0,0.4);
+    text-shadow: 0 0 8px rgba(0,0,0,0.4);
 }
 
 .noselect {
