@@ -169,21 +169,21 @@ var animationActions = [
         updateExplanation();
         makeTableVisible();
         updateTableData();
-        fillMessageSpan("m='dcba'");
+        setMessageSpanText("'dcba'");
     },
     function () {
         extendSVG();
         drawLines([0, 1, 2]);
         drawText([0, 1]);
         updateExplanation();
-        updateBarValueText();
+        updateIntervalText();
         //makeTableVisible(); TODO: uncomment when table is implemented
     },
     function() {
         drawLines([3, 4, 5]);
         drawText([2, 3, 4, 5, 6, 7, 8]);
         updateExplanation(); 
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         highlightLetter("d-interval", 0);
         highlightLetter("c-interval", 0);
@@ -200,14 +200,14 @@ var animationActions = [
         removeHighlight("d", 0);
         removeHighlight("max", 0);
         removeHighlight("d-interval", 0);
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
         drawLineBetweenDiagrams("d-line-0", "min-line-1");
     },
     function() {
         updateExplanation();
-        updateBarValueText();
+        updateIntervalText();
         highlightLetter("c-interval", 1);
         highlightLetter("d-interval", 1);
         highlightLetter("c", 1);
@@ -215,7 +215,7 @@ var animationActions = [
     function() {
         addDiagram();
         updateExplanation();
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         drawLineBetweenDiagrams("d-line-1", "max-line-2");
         drawLineBetweenDiagrams("c-line-1", "min-line-2");
@@ -229,7 +229,7 @@ var animationActions = [
     function() {
         addDiagram();
         updateExplanation();
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         removeHighlight("b-interval", 2);
         removeHighlight("c-interval", 2);
@@ -256,13 +256,13 @@ var animationActions = [
         setMessageSpanText("");
         drawLines([0, 1, 2]);
         drawText([0, 1]);
-        updateBarValueText();
+        updateIntervalText();
     },
     function() {
         updateExplanation();
         drawLines([3, 4, 5]);
         drawText([2, 3, 4, 5, 6, 7, 8]);
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         updateTableData();
         highlightLetter("d", 0);
@@ -276,11 +276,11 @@ var animationActions = [
         removeHighlight("d-interval", 0);
         removeHighlight("max", 0);
         addDiagram();
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         drawLineBetweenDiagrams("max-line-0", "max-line-1");
         drawLineBetweenDiagrams("d-line-0", "min-line-1");
-        updateBarValueText();
+        updateIntervalText();
         highlightLetter("c-interval", 1);
         highlightLetter("d-interval", 1);
         setMessageSpanText("dc");
@@ -290,10 +290,10 @@ var animationActions = [
         removeHighlight("d-interval", 1);
         updateExplanation();
         addDiagram();
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         addDiagram();
-        updateBarValueText();
+        updateIntervalText();
         updateTableData();
         drawLineBetweenDiagrams("d-line-1", "max-line-2");
         drawLineBetweenDiagrams("c-line-1", "min-line-2");

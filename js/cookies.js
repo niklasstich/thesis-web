@@ -2,6 +2,7 @@ const cookieExpirationDays = 365;
 const progressCookieName = "questionProgress";
 const maxProgress = 8; //TODO: Adjust this to the correct value of progress that can be made
 
+//updates progress in navbar using cookie information
 function updateNavbarProgress() {
     const elem = document.getElementById("navbar-progress");
     elem.innerHTML = "Fortschritt: " + countCompleted() + " fertig";
@@ -59,11 +60,11 @@ function initializeProgress(){
     return cookie;
 }
 
-
 //alias for newCookie
 function updateCookie(name, value, time) {
     newCookie(name, value, time);
 }
+
 //sets a new cookie with specified name and value
 function newCookie(name, value, time) {
     if (name===undefined || value===undefined) {
@@ -95,6 +96,7 @@ function getCookie(name) {
     return undefined;
 }
 
+//invalidates cookie by setting data to nothing and expirationDate to the past
 function invalidateCookie(name){
     newCookie(name, "", -1);
 }

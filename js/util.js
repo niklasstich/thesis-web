@@ -8,8 +8,9 @@ const height = 200;
 const barWidth = 20;
 const iterationWidth = 120;
 
-const bracketSVG = "/img/curlybracket_right.svg";
+const bracketSVG = "/img/curlybracket_right_slim_verythin.svg";
 
+//expands the svg size to make room for another iteration
 function extendSVG() {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
@@ -21,6 +22,7 @@ function extendSVG() {
     scrollSVGdiv();
 }
 
+//finds or creates the groups lineGroup, textGroup, barGroup and metaGroup for the current diagramIteration and returns them
 function createOrFindGroups(){
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
@@ -73,6 +75,7 @@ function drawLines(indices) {
         lineGroup.appendChild(newShape);
     });
 }
+
 //Like drawLines but for textData
 function drawText(indices) {
     const svgObject = document.getElementById("svg");
@@ -94,8 +97,9 @@ function drawText(indices) {
     });
 }
 
+//draws the bracket and text showing the length of the current interval
 function drawLengthBracket(length) {
-    const offsetx = 5;
+    const offsetx = 2;
     //bracket
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
@@ -105,7 +109,7 @@ function drawLengthBracket(length) {
     const bracketposx = parseInt(maxLine.getAttribute("x2"), 10) + offsetx;
     const bracketposy = parseInt(maxLine.getAttribute("y2"), 10);
     const height = parseInt(middleLine.getAttribute("y2"), 10) - parseInt(middleLine.getAttribute("y1"), 10);
-    const width = height/4;
+    const width = height/10;
     let bracketElement = svgDoc.createElementNS("http://www.w3.org/2000/svg", "image");
     bracketElement.setAttribute("x", bracketposx);
     bracketElement.setAttribute("y", bracketposy);
@@ -113,17 +117,21 @@ function drawLengthBracket(length) {
     bracketElement.setAttribute("width", width);
     bracketElement.setAttribute("href", bracketSVG);
     bracketElement.setAttribute("opacity", "0.5");
+    bracketElement.id = `bracket-${diagramIteration}`;
     metaGroup.appendChild(bracketElement);
     //text
     const textposx = bracketposx + width;
-    const textposy = bracketposy + height/2;
+    const textposy = bracketposy + height/2 + 1;
     let textElement = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text");
     textElement.setAttribute("x", textposx);
     textElement.setAttribute("y", textposy);
-    textElement.textContent = `l = length`;
+    textElement.setAttribute("font-size", "4px");
+    textElement.textContent = `l = ${length}`;
+    textElement.id = `bracket-text-${diagramIteration}`;
     metaGroup.appendChild(textElement);
 }
 
+//adds a new line diagram with data from lineData and textData
 function addDiagram() {
     diagramIteration++;
     // get svg
@@ -135,13 +143,9 @@ function addDiagram() {
     extendSVG();
     drawLines([...lineData.keys()]);
     drawText([...textData.keys()]);
-    //slide slider to the right slowly, if applicable
-    //TODO: Figure out a way to scroll nicely, perhaps with jQuery 
-    // see https://stackoverflow.com/a/51005649/8901348
-    /*const div = svgObject.parentElement;
-    div.scrollLeft += 600;*/
 }
 
+//resets the svg by restoring to initial viewbox and removing all child objects
 function resetSVG() {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
@@ -151,6 +155,7 @@ function resetSVG() {
     svgObject.setAttribute("viewBox", "0 0 0 " + height);
 }
 
+//completely resets state of page by setting all iteration to 0, resetting svg and table and reinitializing the page
 function resetState() {
     resetSVG();
     animationIteration = 0;
@@ -163,6 +168,7 @@ function resetState() {
     initializePage();
 }
 
+//fetches next state from explanationData and updates explanation text
 function updateExplanation() {
     const explanationP = document.getElementById("explanation");
     explanationP.innerHTML = explanationData[explanationIteration];
@@ -170,7 +176,8 @@ function updateExplanation() {
     MathJax.typeset();
 }
 
-function updateBarValueText() {
+//fetches next state from intervalNumbers and updates text elements in current diagram iteration
+function updateIntervalText() {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
     for (let i = 0; i < updatableTextFields; i++) {
@@ -188,7 +195,8 @@ function updateBarValueText() {
     barValueTextIteration++;
 }
 
-
+//seems to be unused right now
+//create a new bar in iteration from upperY to lowerY with width barWidth
 function createBar(iteration, upperY, lowerY) {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
@@ -205,7 +213,7 @@ function createBar(iteration, upperY, lowerY) {
     svgObject.getElementById("bar-group-"+iteration).appendChild(newShape);
 }
 
-
+//advances animation by one
 function advanceAnimation() {
     enableAnimationProgress();
     animationActions[animationIteration]();
@@ -213,6 +221,7 @@ function advanceAnimation() {
     updatePageProgress();
 }
 
+//resets animation completely and fast-forwards until previous iteration
 function reverseAnimation() {
     const prevIteration = animationIteration - 1;
     resetState();
@@ -222,6 +231,8 @@ function reverseAnimation() {
     updatePageProgress();
 }
 
+//initialized the page by setting first explanation text, making the table invisible, setting up mathjax
+//and updating the animation progress
 function initializePage() {	
     const explanationP = document.getElementById("explanation");	
     explanationP.innerHTML = explanationData[explanationIteration];
@@ -231,17 +242,14 @@ function initializePage() {
     updatePageProgress();
 }
 
-function fillMessageSpan(message){
-    const element = document.getElementById("span-message");
-    element.innerHTML = "Nachricht " + message;
-}
-
+//change fontcolor of letter in iteration to color
 function changeLetterColor(letter, iteration, color){
     const element = document.getElementById(letter + "-" + iteration);
     element.setAttribute("fill", color);
     return element;
 }
 
+//highlights letter in iteration red
 function highlightLetter(letter, iteration) {
     const element = changeLetterColor(letter, iteration, "red");
     const parent = element.parentElement;
@@ -249,24 +257,29 @@ function highlightLetter(letter, iteration) {
     parent.appendChild(element);
 }
 
+//removes the highlight from letter in iteration
 function removeHighlight(letter, iteration){
     changeLetterColor(letter, iteration, "black");
 }
+
+//enables the forward button on the animation
 function enableAnimationProgress() {{
     const element = document.getElementById("button-forward");
     element.removeAttribute("disabled", "false")
 }}
 
+//disables the forward button on the animation
 function disableAnimationProgress() {
     const element = document.getElementById("button-forward");
     element.setAttribute("disabled", "true");
 }
 
-function drawLineBetweenDiagrams(fromLineId, toLineId) {
+//draws a line from foot x2,y2 to tip x1,y1
+function drawLineBetweenDiagrams(foot, tip) {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
-    const source = svgDoc.getElementById(fromLineId);
-    const dest = svgDoc.getElementById(toLineId);
+    const source = svgDoc.getElementById(foot);
+    const dest = svgDoc.getElementById(tip);
     let newElement = svgDoc.createElementNS("http://www.w3.org/2000/svg", "line")
     newElement.setAttribute("x1", source.getAttribute("x2"));
     newElement.setAttribute("y1", source.getAttribute("y2"));
@@ -277,16 +290,19 @@ function drawLineBetweenDiagrams(fromLineId, toLineId) {
     svgObject.appendChild(newElement);
 }
 
+//makes algo-table visible
 function makeTableVisible() {
     const element = document.getElementById("algo-table");
     element.style.visibility = "visible";
 }
 
+//makes algo-table hidden
 function makeTableInvisible() {
     const element = document.getElementById("algo-table");
     element.style.visibility = "hidden";
 }
 
+//fetches next table state from tableData and displays it in algo-table
 function updateTableData() {
     const element = document.getElementById("algo-table");
     const iterationData = tableData[tableIteration];
@@ -303,11 +319,13 @@ function updateTableData() {
     tableIteration++;
 }
 
+//resets the innerHTML of the algo-table to nothing
 function resetTable() {
     const element = document.getElementById("algo-table");
     element.innerHTML = "";
 }
 
+//toggles off blur of specified id
 function toggleBlur(id) {
     const element = document.getElementById(id);
     if (element != null) {
@@ -317,11 +335,13 @@ function toggleBlur(id) {
     }
 }
 
+//updates the animation progress in page-progress
 function updatePageProgress() {
     const element = document.getElementById("page-progress");
     element.innerHTML = `Schritt: ${animationIteration+1}/${animationActions.length+1}`;
 }
 
+//scrolls the div containing the SVG to the rightmost position with easing
 function scrollSVGdiv() {
     if (!$("#autoscroll-check")[0].checked){
         return;
@@ -332,7 +352,38 @@ function scrollSVGdiv() {
     $(element).animate({scrollLeft: maxScroll}, 800, "easeInOutCubic");
 }
 
+//sets the text in span-message to the new message
 function setMessageSpanText(text) {
     const element = document.getElementById("span-message");
     element.innerHTML = `Nachricht m='${text}'`;
+}
+
+//fades elements into invisibility in 2 seconds and removes it from the HTML document after 3 seconds
+function fadeHTMLElement(...ids) {
+    fadeElements(document, ...ids);
+}
+
+//fades elements into invisibility in 2 seconds and removes it from the SVG document after 3 seconds
+function fadeSVGElement(...ids) {
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    fadeElements(svgDoc, ...ids);
+}
+
+//use fadeSVGElement or fadeHTMLElement instead
+function fadeElements(parentDocument, ...ids) {
+    ids.forEach(id => {
+        const element = parentDocument.getElementById(id);
+        element.classList.add("fade-out");
+        (async function(element) {
+            const parent = element.parentNode
+            await sleep(3000);
+            parent.removeChild(element);
+        })(element);
+    });
+}
+
+//returns a promise that resolves after ms milliseconds
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
