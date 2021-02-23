@@ -1,10 +1,11 @@
-Unterschiedliche Farben bei der Berechnung und Formeln farbig machen
 Erst die Erklärung, dann die Formeln. Im Diagramm erklären, wie untere Grenzen vom Subintervall zustande kommen und Zusammenhang zur kumulativen Häufigkeit
 Kürzeres Beispiel mit einfacheren Zahlen und Unterteilung in ein Diagramm.
 Text kürzen (am Ende!)
 Vektorenzeichnen mit Vorgegebenem Vektorfuß und Zusammensetzung, mehrfarbig!! onmousedown, onmouseup. seperates js file in SVG einbinden??
 Quizzes müssen anders gepaced sein
 "Abgrenzung zur anderen Arbeiten" anfangen zu schreiben
+
+l font gleiche größe wie Max/Min, Max/Min verschieben
 
 Option Radikalschlag: Text weg, nur Diagramm, Sätze einstreuen! So ähnlich wie Tiptoi?
 
@@ -16,7 +17,7 @@ Fertig:
 --Länge l im Diagramm sichtbar machen--
 --TTS Test => ttsdemo.sh--
 --Schritt 13 oben steht schon die Antwort--
-
+--Unterschiedliche Farben bei der Berechnung und Formeln farbig machen--
 
 TTS: 
 Google Cloud TTS engine https://cloud.google.com/text-to-speech/docs/voices

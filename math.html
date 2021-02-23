@@ -10,6 +10,7 @@
     <script src="js/util.js" defer></script>
     <script src="js/mathContent.js" defer></script>
     <script src="js/cookies.js" defer></script>
+    <script src="js/vectors.js" defer></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" defer></script>
     <script src="js/jqueryui/jquery-ui.js" defer></script>
@@ -61,7 +62,14 @@
           baseProfile="full"
           viewBox = "0 0 0 200" 
           xmlns="http://www.w3.org/2000/svg"
-          id="svg"></svg>
+          onload="initDrawing(evt)"
+          id="svg">
+            <defs>
+              <marker id="arrowHead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <path d="M 0 0 L 6 2 L 0 4 M 6 2 L 0 2 z" />
+              </marker>
+            </defs>
+          </svg>
         </div>
         <div class="col-4  separate-scroll">
           <h1>Mathematische Grundlagen der arithmetischen Kodierung</h1>
