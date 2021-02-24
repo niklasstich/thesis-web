@@ -6,6 +6,7 @@ const vectorXOffset = 90;
 const vectorFootY = 199;
 const lowerBoundY = 0;
 const upperBoundY = 200;
+
 //registers event listeners
 function initDrawing(evt) {
     const svg = evt.target;

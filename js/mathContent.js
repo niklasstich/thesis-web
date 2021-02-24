@@ -164,7 +164,7 @@ const tableHeader =
 <th>kumulative Häufigkeit</th>\
 <th>unteres Limit</th>\
 <th>oberes Limit</th>\
-</tr>"
+</tr>";
 
 var animationActions = [
     function (_) {
@@ -413,7 +413,3 @@ function correctButton() {
     unblurMessage();
 }
 
-function unblurMessage() {
-    const element = document.getElementById("blurred-c");
-    element.classList.remove("blurred-text");
-}

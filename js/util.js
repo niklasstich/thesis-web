@@ -390,3 +390,8 @@ function fadeElements(parentDocument, ...ids) {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function unblurMessage() {
+    const element = document.getElementById("blurred-c");
+    element.classList.remove("blurred-text");
+}
