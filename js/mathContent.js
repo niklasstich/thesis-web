@@ -113,7 +113,7 @@ const explanationData = [
     <li>Wir müssen also bei der Übertragung der Nachricht zusätzlich in irgendeiner Form die Länge übermitteln oder ein zusätzliches Zeichen lediglich für die Terminierung des Algorithmus einführen.</li>\
     <li>Dies ist ein Problem, da es unter Umständen die erreichte Kompressionsrate verringern kann. Weitere Probleme des Algorithmus werden <a href='mathproblems.html'>im nächsten Kapitel aufgezeigt.</a></li>\
     </ul>"
-]
+];
 const textData = [
     [0+82, 199, "Min", "min-"],
     [0+82, 6, "Max", "max-"],
@@ -124,7 +124,7 @@ const textData = [
     [0+42, 91, "b", "b-"],
     [0+42, 51, "c", "c-"],
     [0+42, 11, "d", "d-"]
-]
+];
 
 const lineData = [
     [0+40, 0+40, 1, 199, "middle-line-"],
@@ -154,7 +154,7 @@ const tableData = [
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>0.95</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.95</span>", "<span class='fading-emphasis'>0.96</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.99</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.99</span>", "<span class='fading-emphasis'>1.0</span>"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.975</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.978</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.978</span>", "<span class='fading-emphasis'>0.987</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.987</span>", "<span class='fading-emphasis'>0.99</span>"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.9765</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.9765</span>", "<span class='fading-emphasis'>0.9768</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.9768</span>", "<span class='fading-emphasis'>0.9777</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.9777</span>", "<span class='fading-emphasis'>0.978</span>"]],
-]
+];
 
 
 const tableHeader = 
@@ -166,7 +166,7 @@ const tableHeader =
 <th>oberes Limit</th>\
 </tr>";
 
-var animationActions = [
+const animationActions = [
     function (_) {
         updateExplanation();
         makeTableVisible();
@@ -363,7 +363,7 @@ const checkQuizDataFunctions = [
         }
         markCompleted(2);
     }
-]
+];
 
 const quizResponseData = [
     ["Richtige Antwort! Das Subintervall 'd' wird unser nächstes Intervall, daher muss 0.9 die untere Grenze sein.",
@@ -379,7 +379,7 @@ const quizResponseData = [
     "Richtige Antwort! Das Subintervall des Symbols 'a' ist unser finales Intervall."],
 
     ["Leider falsch. Richtig wäre 'c' gewesen, da unsere Zahl zwischen 0.96 und 0.99 liegt.", "Richtig! Es muss ein 'c' ausgegeben werden, da unsere Zahl zwischen 0.96 und 0.99 liegt."]
-]
+];
 
 function keyQuiz(evt, id) {
     if (evt.keyCode===13) {
