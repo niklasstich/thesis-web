@@ -6,7 +6,7 @@ let tableIteration = 0;
 const updatableTextFields = 5;
 const height = 200;
 const barWidth = 20;
-const iterationWidth = 120;
+const iterationWidth = 200;
 
 const bracketSVG = "/img/curlybracket_right_slim_verythin.svg";
 
