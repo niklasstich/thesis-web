@@ -16,7 +16,33 @@ const explanationData = [
     <li>Wir gehen den Algorithmus mal im Schnelldurchlauf durch.</li>\
     <li>Unser finales Interval lautet: \\([0.87837885728310770625; 0.87837885728311044)\\). Das sind 20 bzw. 17 Nachkommastellen!</li>\
     <li>Geben wir diese Zahlen in <a href='https://www.exploringbinary.com/floating-point-converter'>diesen Dezimal zu Gleitkomma-Konvertierer</a> ein, so sehen wir, dass beide Zahlen nur inexakt als float oder double darstellbar sind.</li>\
-    <li>Dies ist offensichtlich ein Problem, da dies bedeutet, dass wir weder in unserem Algorithmus noch bei der Übertragung mit Gleitkomma-Zahlen arbeiten können.</li>"
+    <li>Dies ist offensichtlich ein Problem, da dies bedeutet, dass wir weder in unserem Algorithmus noch bei der Übertragung mit Gleitkomma-Zahlen arbeiten können.</li>\
+    </ul>",
+
+    "<i>Senden vor Ende des Algorithmus:</i>\
+    <ul>\
+    <li>Aufgrund der vielen Berechnungen kann die Ausführung bei längeren Nachrichten durchaus Zeit in Anspruch nehmen.</li>\
+    <li>Es wäre daher wünschenswert schon vor Ende mit der Übertragung zu beginnen.</li>\
+    <li>Dies ist bei dem Algorithmus aber nicht möglich, wie nun gezeigt werden soll.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Wir nehmen als Beispiel wieder die Zahlen des ersten Beispiel.</li>\
+    <li>Unsere Nachricht lautet \\(m=`aaa`\\).</li>\
+    <li>Wir kodieren das erste Symbol 'a'.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Angenommen wir wollen nun mit dem Senden beginnen, obwohl wir nicht mit dem Kodieren der Nachricht fertig sind.</li>\
+    <li>Welche Zahl genau würden wir senden? Wir könnten zwar jede Zahl im Intervall senden, aber woher wissen wir, dass diese Zahl nach dem nächsten Symbol noch korrekt ist?</li>\
+    <li>Spielen wir dies beispielhaft mit \\(0.5\\) durch.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Jetzt haben wir das zweite Symbol 'a' kodiert.</li>\
+    <li>\\(0.5\\) liegt jetzt nicht mehr im Intervall, wir haben also nutzlose Information gesendet, genau das wollen wir mit Kompressionsalgorithmen verhindern.</li>\
+    <li>Abschließend kann man also sagen, dass im allgemeinen Fall vor Ende dieses Algorithmus keine Daten sendbar sind.</li>\
+    </ul>"
 ];
 
 const textData = [
@@ -61,6 +87,9 @@ const intervalNumbers = [
         ["0.87837885728230125","0.878378857282756875","0.878378857282848","0.878378857283121375","0.8783788572832125",],
         ["0.878378857282848","0.8783788572829846875","0.878378857283012025","0.8783788572830940375","0.878378857283121375",],
         ["0.8783788572830940375","0.87837885728310770625","0.87837885728311044","0.87837885728311864125","0.878378857283121375",],
+        ["0", "0.5", "0.6", "0.9", "1"],
+        ["0", "", "", "", "0.5"],
+        ["","0.25","0.3","0.45",""]
 ]
 
 
@@ -92,7 +121,6 @@ const animationActions = [
             for (let i = 0; i < 18; i++) {
                 addDiagram(true);
                 updateIntervalText();
-                await sleep(50);
             }
             addDiagram(false);
             updateIntervalText();
@@ -139,7 +167,32 @@ const animationActions = [
             drawLineBetweenDiagrams("d-line-19","min-line-20");
 
         })();
+    },
+    function(replay) {
+        updateExplanation();
+        resetSVG();
+        diagramIteration = 0;
+    },
+    function(replay) {
+        updateExplanation();
+        addDiagram(replay);
+        updateIntervalText();
+    },
+    function(replay) {
+        updateExplanation();
+        addDiagram(replay);
+        updateIntervalText();
+        drawLineBetweenDiagrams("min-line-1", "min-line-2");
+        drawLineBetweenDiagrams("b-line-1", "max-line-2");
+    },
+    function(replay) {
+        updateExplanation();
+        updateIntervalText();
+        highlightLetter("b-interval", 2);
+        highlightLetter("min", 2);
+        highlightLetter("a", 2);
     }
+
 ];
 
 const checkQuizDataFunctions = [
