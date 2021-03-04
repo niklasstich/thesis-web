@@ -187,6 +187,10 @@ svg {
     position: relative;
 }
 
+svg rect {
+    fill: crimson;
+}
+
 svg line {
     stroke-width: 0.6;
 }

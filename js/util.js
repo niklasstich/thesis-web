@@ -197,7 +197,6 @@ function updateIntervalText() {
     barValueTextIteration++;
 }
 
-//seems to be unused right now
 //create a new bar in iteration from upperY to lowerY with width barWidth
 function createBar(iteration, upperY, lowerY) {
     const svgObject = document.getElementById("svg");
@@ -209,10 +208,15 @@ function createBar(iteration, upperY, lowerY) {
     newShape.setAttribute("y", upperY);
     newShape.setAttribute("width", barWidth);
     newShape.setAttribute("height", lowerY - upperY);
-    newShape.classList.add("draggable");
     newShape.classList.add("fade-in");
     newShape.id = "bar-"+iteration;
     svgObject.getElementById("bar-group-"+iteration).appendChild(newShape);
+}
+
+function moveBar(iteration, newUpperY, newLowerY) {
+    const svgObject = document.getElementById("svg");
+    const svgDoc = svgObject.ownerDocument;
+    const shape = svgDoc.getElementById(`bar-${iteration}`);
 }
 
 //advances animation by one

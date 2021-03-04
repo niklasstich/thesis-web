@@ -135,7 +135,7 @@ const tableData = [
 
 let tableHeader = 
 "\<tr>\
-<th>Buchstabe</th>\
+<th>Zeichen</th>\
 <th>rel. Häufigkeit</th>\
 <th>kumulative Häufigkeit</th>\
 <th>unteres Limit</th>\
