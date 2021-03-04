@@ -6,19 +6,19 @@ let tableIteration = 0;
 const updatableTextFields = 5;
 const height = 200;
 const barWidth = 20;
-const iterationWidth = 200;
+const iterationWidth = 140;
 
 const bracketSVG = "/img/curlybracket_right_slim_verythin.svg";
 
 //expands the svg size to make room for another iteration
-function extendSVG(replay) {
+function extendSVG(replay, deltaWidth=iterationWidth) {
     const svgObject = document.getElementById("svg");
     const svgDoc = svgObject.ownerDocument;
     // make room for new diagram
     const viewBox = svgObject.getAttributeNS(null, "viewBox");
     const width = parseInt(viewBox.split(" ")[2])
     const height = parseInt(viewBox.split(" ")[3])
-    svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+iterationWidth) + " " + (height));
+    svgObject.setAttributeNS(null, "viewBox", "0 0 " + (width+deltaWidth) + " " + (height));
     if(!replay){
         scrollSVGdiv();
     }
@@ -134,7 +134,7 @@ function drawLengthBracket(length) {
 }
 
 //adds a new line diagram with data from lineData and textData
-function addDiagram(replay) {
+function addDiagram(replay, deltaWidth) {
     diagramIteration++;
     // get svg
     const svgObject = document.getElementById("svg");
@@ -142,7 +142,7 @@ function addDiagram(replay) {
     const viewBox = svgObject.getAttributeNS(null, "viewBox");
     const width = parseInt(viewBox.split(" ")[2])
     const height = parseInt(viewBox.split(" ")[3])
-    extendSVG(replay);
+    extendSVG(replay, deltaWidth);
     drawLines([...lineData.keys()]);
     drawText([...textData.keys()]);
 }

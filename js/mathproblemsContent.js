@@ -6,7 +6,7 @@ const explanationData = [
     <li><i>Bitfehleranfälligkeit:</i> Ein einzelner Bitfehler bei der Übertragung der Nachricht kann die gesamte Nachricht zerstören.</li>\
     </ul>Im folgenden werden diese Probleme genauer beleuchtet.",
 
-    "<i>Kommazahlen</i><br>\
+    "<i>Kommazahlen:</i><br>\
     <ul>\
     <li>Um das Problem zu verdeutlichen, nehmen wir das vorherige Beispiel zur Hand.</li>\
     <li>Sei eine neue Nachricht: \\(m=`cdabbcccdabbacdcdcdb`\\) mit 20 Zeichen.</li>\
@@ -42,10 +42,37 @@ const explanationData = [
     <li>Jetzt haben wir das zweite Symbol 'a' kodiert.</li>\
     <li>\\(0.5\\) liegt jetzt nicht mehr im Intervall, wir haben also nutzlose Information gesendet, genau das wollen wir mit Kompressionsalgorithmen verhindern.</li>\
     <li>Abschließend kann man also sagen, dass im allgemeinen Fall vor Ende dieses Algorithmus keine Daten sendbar sind.</li>\
+    </ul>",
+
+    "<i>Bitfehleranfälligkeit:</i><ul>\
+    <li>Übertragungsmedien sind niemals perfekt, weshalb bei der Übertragung von Daten regelmäßig Fehler zu erwarten sind.</li>\
+    <li>Wir können zwar meistens auf Checksummen in unteren Protokollschichten vertrauen, trotzdem können wir einen Algorithmus auf seine Fehleranfälligkeit überprüfen.</li>\
+    <li>Wir überprüfen deshalb nun den mathematischen Algorithmus auf Bitfehleranfälligkeit.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Nehmen wir hierfür wieder die Werte aus dem bekannten Beispiel zur Hand.</li>\
+    <li>Kodiert wird die Nachricht \\(m=`abbd`\\).</li>\
+    <li>Wir picken uns die Zahl \\(0.27978515625\\) aus dem Intervall zur Übertragung heraus.</li>\
+    <li>Als Binärzahl mit Zweierpotenzen erhalten wir \\(0.01000111101\\).</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Wir flippen nun bei der Übertragung ein einzelnes Bit und erhalten\\(0.\\textcolor{red}{1}1000111101\\)</li>\
+    <li>Als Dezimalzahl erhalten wir nun statt \\(0.27978515625\\) die Zahl \\(0.\\textcolor{red}{7}7978515625\\)</li>\
+    <li>Wir dekodieren jetzt die Nachricht auf Empfängerseite und nehmen an, dass wir die Länge 4 der Nachricht kennen.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Wir erhalten beim Dekodieren die falsche Nachricht \\(m=`cbdd`\\) statt \\(m=`abbd`\\) zurück!</li>\
+    <li>Ein Großteil der Nachricht, exakt 50%, ist durch einen einzigen Bitfehler zerstört worden.</li>\
+    <li>Abschließend lässt sich sagen, dass ein einzelner Bitfehler in der Übertragung mehr als ein Symbol der Nachricht verändern kann.</li>\
+    <li><a href='fixedpointAlgorithm.html'>Im nächsten Kapitel</a> beleuchten wir eine alternative Implementierung des Algorithmus, welche ohne Dezimalzahlen auskommt und einige dieser Probleme umgeht.</li>\
     </ul>"
+    
 ];
 
-const textData = [
+let textData = [
     [0+82, 199, "Min", "min-"],
     [0+52, 101, "", "b-interval-"],
     [0+52, 81, "", "c-interval-"],
@@ -89,15 +116,24 @@ const intervalNumbers = [
         ["0.8783788572830940375","0.87837885728310770625","0.87837885728311044","0.87837885728311864125","0.878378857283121375",],
         ["0", "0.5", "0.6", "0.9", "1"],
         ["0", "", "", "", "0.5"],
-        ["","0.25","0.3","0.45",""]
+        ["","0.25","0.3","0.45",""],
+        ["0","0.5","0.6","0.9","1",],
+        ["0","0.25","0.3","0.45","0.5",],
+        ["0.25","0.275","0.28","0.295","0.3",],
+        ["0.275","0.2775","0.278","0.2795","0.28",],
+        ["0","0.5","0.6","0.9","1",],
+        ["0.6","0.75","0.78","0.87","0.9",],
+        ["0.75","0.765","0.768","0.777","0.78",],
+        ["0.777","0.7785","0.7788","0.7797","0.78",],
 ]
 
 
 const tableData = [
     [["a", "0.5", "0.0", "", ""], ["b", "0.1", "0.5", "", ""], ["c", "0.3", "0.6", "", ""], ["d", "0.1", "0.9", "", ""]],
+    [["a", "0.5", "0"], ["b", "0.3", "10"], ["c", "0.2", "11"]]
 ];
 
-const tableHeader = 
+let tableHeader = 
 "\<tr>\
 <th>Buchstabe</th>\
 <th>rel. Häufigkeit</th>\
@@ -108,7 +144,7 @@ const tableHeader =
 
 const animationActions = [
     function(replay) {
-        addDiagram(replay);
+        addDiagram(replay, 200);
         updateExplanation();
         makeTableVisible();
         updateTableData();
@@ -119,10 +155,10 @@ const animationActions = [
         updateIntervalText();
         (async function() {
             for (let i = 0; i < 18; i++) {
-                addDiagram(true);
+                addDiagram(true, 200);
                 updateIntervalText();
             }
-            addDiagram(false);
+            addDiagram(false, 200);
             updateIntervalText();
             highlightLetter("b", 20);
             highlightLetter("b-interval", 20);
@@ -165,10 +201,10 @@ const animationActions = [
             drawLineBetweenDiagrams("c-line-18","min-line-19");
             drawLineBetweenDiagrams("max-line-19","max-line-20");
             drawLineBetweenDiagrams("d-line-19","min-line-20");
-
         })();
     },
     function(replay) {
+        //half assed reset
         updateExplanation();
         resetSVG();
         diagramIteration = 0;
@@ -191,6 +227,61 @@ const animationActions = [
         highlightLetter("b-interval", 2);
         highlightLetter("min", 2);
         highlightLetter("a", 2);
+    },
+    function(replay) {
+        updateExplanation();
+        resetSVG();
+        diagramIteration = 0;
+        setMessageSpanText("");
+    },
+    function(replay) {
+        updateExplanation();
+        setMessageSpanText("abbd");
+        addDiagram(true);
+        updateIntervalText();
+        addDiagram(true);
+        updateIntervalText();
+        addDiagram(true);
+        updateIntervalText();
+        addDiagram(replay);
+        updateIntervalText();
+        drawLineBetweenDiagrams("b-line-1","max-line-2");
+        drawLineBetweenDiagrams("min-line-1","min-line-2");
+        drawLineBetweenDiagrams("c-line-2","max-line-3");
+        drawLineBetweenDiagrams("b-line-2","min-line-3");
+        drawLineBetweenDiagrams("c-line-3","max-line-4");
+        drawLineBetweenDiagrams("b-line-3","min-line-4");
+        highlightLetter("d", 4);
+        highlightLetter("d-interval", 4);
+        highlightLetter("max", 4);
+    },
+    function(replay) {
+        updateExplanation();
+        resetSVG();
+        diagramIteration = 0;
+        setMessageSpanText("");
+        document.getElementById("span-number").innerHTML = "Zahl = 0.77978515625";
+    },
+    function(replay) {
+        updateExplanation();
+        setMessageSpanText("cbdd");
+        addDiagram(true);
+        updateIntervalText();
+        addDiagram(true);
+        updateIntervalText();
+        addDiagram(true);
+        updateIntervalText();
+        addDiagram(replay);
+        updateIntervalText();
+        drawLineBetweenDiagrams("d-line-1","max-line-2");
+        drawLineBetweenDiagrams("c-line-1","min-line-2");
+        drawLineBetweenDiagrams("c-line-2","max-line-3");
+        drawLineBetweenDiagrams("b-line-2","min-line-3");
+        drawLineBetweenDiagrams("max-line-3","max-line-4");
+        drawLineBetweenDiagrams("d-line-3","min-line-4");
+        highlightLetter("d", 4);
+        highlightLetter("max", 4);
+        highlightLetter("d-interval", 4);
     }
 
 ];

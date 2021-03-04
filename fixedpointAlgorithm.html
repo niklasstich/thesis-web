@@ -8,16 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Fira+Sans:wght@300&family=Ubuntu+Mono&family=Ubuntu&display=swap" rel="stylesheet"/>
     <link href="css/style.css" rel="stylesheet"/>
     <script src="js/util.js" defer></script>
-    <script src="js/mathContent.js" defer></script>
+    <script src="js/mathproblemsContent.js"></script>
     <script src="js/cookies.js" defer></script>
+    <script src="js/vectors.js" defer></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" defer></script>
     <script src="js/jqueryui/jquery-ui.js" defer></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
       MathJax = {
+        loader: {
+          load: ['[tex]/color']
+        },
         tex: {
-          inlineMath: [['\\(', '\\)']]
+          inlineMath: [['\\(', '\\)']],
+          packages: {'[+]': ['color']}
         }
       }
     </script>
@@ -38,10 +43,10 @@
               <a class="nav-link" href="math.html">Mathematische Grundlagen</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="mathproblems.html">Probleme des Algorithmus</a>
+              <a class="nav-link active" href="mathproblems.html">Probleme des Algorithmus</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="fixedpointAlgorithm.html">Festkommaimplementierung</a>
+              <a class="nav-link" href="fixedpointAlgorithm.html">Festkommaimplementierung</a>
             </li>
           </ul>
         </div>
@@ -52,18 +57,25 @@
     </nav>
     <div class="container-fluid" id="main-content">
       <div class="row">
-        <div class="col-6" id="svg-div">
+        <div class="col-8" id="svg-div">
           <svg version="1.1"
           baseProfile="full"
           viewBox = "0 0 0 200" 
           xmlns="http://www.w3.org/2000/svg"
-          id="svg"></svg>
+          onload="initDrawing(evt)"
+          id="svg">
+            <defs>
+              <marker id="arrowHead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+                <path d="M 0 0 L 6 2 L 0 4 M 6 2 L 0 2 z" />
+              </marker>
+            </defs>
+          </svg>
         </div>
-        <div class="col-6">
+        <div class="col-4 seperate-scroll">
           <h1>Festkommaimplementierung nach Witten et al.</h1>
           <span id="page-progress">Schritt 1/?</span><br>
           <button onclick="reverseAnimation()" id="button-back">Zurück</button>
-          <button onclick="advanceAnimation()" id="button-forward">Weiter</button>
+          <button onclick="advanceAnimation(false)" id="button-forward">Weiter</button>
           <button onclick="resetState()" id="button-reset">Zurück zum Anfang</button>
           <input type="checkbox" id="autoscroll-check" checked="true"><label for="autoscroll-check">Autoscroll</label>
           <div id="div-persinfo">
