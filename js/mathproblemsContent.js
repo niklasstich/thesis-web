@@ -16,12 +16,14 @@ const explanationData = [
     <li>Wir gehen den Algorithmus mal im Schnelldurchlauf durch.</li>\
     <li>Unser finales Interval lautet: \\([0.87837885728310770625; 0.87837885728311044)\\). Das sind 20 bzw. 17 Nachkommastellen!</li>\
     <li>Geben wir diese Zahlen in <a href='https://www.exploringbinary.com/floating-point-converter'>diesen Dezimal zu Gleitkomma-Konvertierer</a> ein, so sehen wir, dass beide Zahlen nur inexakt als float oder double darstellbar sind.</li>\
+    <li>Die nächsten Zahlen wären für double-precision \\(0.87837885728310771682\\) bzw. \\(0.87837885728311049238\\).</li>\
+    <li>Das bedeutet eine Differenz von \\(1.057\\times 10^{-17}\\) bzw. \\(5.238 \\times 10^{-17}\\)</li>\
     <li>Dies ist offensichtlich ein Problem, da dies bedeutet, dass wir weder in unserem Algorithmus noch bei der Übertragung mit Gleitkomma-Zahlen arbeiten können.</li>\
     </ul>",
 
     "<i>Senden vor Ende des Algorithmus:</i>\
     <ul>\
-    <li>Aufgrund der vielen Berechnungen kann die Ausführung bei längeren Nachrichten durchaus Zeit in Anspruch nehmen.</li>\
+    <li>Aufgrund der vielen Berechnungen kann die Ausführung bei längeren Nachrichten durchaus Zeit in Anspruch nehmen. Zudem haben wir oft weiche oder harte Zeitanforderungen welche eingehalten werden müssen (bspw. bei Streaming).</li>\
     <li>Es wäre daher wünschenswert schon vor Ende mit der Übertragung zu beginnen.</li>\
     <li>Dies ist bei dem Algorithmus aber nicht möglich, wie nun gezeigt werden soll.</li>\
     </ul>",
@@ -35,12 +37,12 @@ const explanationData = [
     "<ul>\
     <li>Angenommen wir wollen nun mit dem Senden beginnen, obwohl wir nicht mit dem Kodieren der Nachricht fertig sind.</li>\
     <li>Welche Zahl genau würden wir senden? Wir könnten zwar jede Zahl im Intervall senden, aber woher wissen wir, dass diese Zahl nach dem nächsten Symbol noch korrekt ist?</li>\
-    <li>Spielen wir dies beispielhaft mit \\(0.5\\) durch.</li>\
+    <li>Spielen wir dies beispielhaft mit \\(0.4\\) durch.</li>\
     </ul>",
 
     "<ul>\
     <li>Jetzt haben wir das zweite Symbol 'a' kodiert.</li>\
-    <li>\\(0.5\\) liegt jetzt nicht mehr im Intervall, wir haben also nutzlose Information gesendet, genau das wollen wir mit Kompressionsalgorithmen verhindern.</li>\
+    <li>\\(0.4\\) liegt jetzt nicht mehr im Intervall, wir haben also nutzlose Information gesendet, genau das wollen wir mit Kompressionsalgorithmen verhindern.</li>\
     <li>Abschließend kann man also sagen, dass im allgemeinen Fall vor Ende dieses Algorithmus keine Daten sendbar sind.</li>\
     </ul>",
 
@@ -208,11 +210,13 @@ const animationActions = [
         updateExplanation();
         resetSVG();
         diagramIteration = 0;
+        setMessageSpanText("");
     },
     function(replay) {
         updateExplanation();
         addDiagram(replay);
         updateIntervalText();
+        setMessageSpanText("aaa");
     },
     function(replay) {
         updateExplanation();

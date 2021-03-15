@@ -16,6 +16,22 @@ const explanationData = [
     </ul>",
 
     "<ul>\
+    <li>Beginnen wir mit einer intuitiven Erklärung ohne Zahlen.</li>\
+    <li>Unser erstes Zeichen ist 'd', also wollen wir das Intervall dieses Zeichens als neues Intervall haben.</li>\
+    <li>Wir zeichnen einen Vektor zur unteren Grenze von d ein. Das wird unsere neue untere Grenze.</li>\
+    <li>Dieser Vektor wird aus der Addition der Vektoren der Subintervalle vor dem Zeichen gebildet (siehe grüne Vektoren).</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Wir addieren den Vektor der Länge des Subintervalls auf diesen Vektor auf und erhalten die neue obere Grenze.</li>\
+    </ul>",
+
+    "<ul>\
+    <li>Als Nächstes kodieren wir das Symbol 'c'.</li>\
+    <li></li>\
+    </ul>",
+
+    "<ul>\
     <li>Wir initialisieren also zunächst wie bereits besprochen unser Intervall von 0 bis 1</li>\
     <li>Danach berechnen wir die Subintervalle für die Auftrittswahrscheinlichkeiten in aktuellen Intervall:</li>\
     <li>Die Länge des aktuellen Intervalls ist simpel \\(l=Max-Min\\)</li>\
@@ -32,9 +48,9 @@ const explanationData = [
     "<ul>\
     <li>Im Diagramm und Tabelle oben wurden die berechneten Werte eingetragen.</li>\
     <li>Als Beispiel einmal die Berechnung für den Buchstaben '<span class='purple'>c</span>':</li>\
-    <li>\\(l=Max-Min=1.0-0.0=\\textcolor{red}{1.0}\\)</li>\
-    <li>\\(u_{c}=u_{2}=Min+\\textcolor{red}{l}*\\textcolor{orange}{\\sum_{i=0}^{n-1} p_i} = 0.0+\\textcolor{red}{1.0}*\\textcolor{orange}{(0.5+0.1)}=0.0+0.6=\\textcolor{green}{0.6}\\)</li>\
-    <li>\\(v_{c}=v_{2}=\\textcolor{green}{u_{i}}+\\textcolor{red}{l}*\\textcolor{#ff00ff}{p_{i}}=\\textcolor{green}{0.6}+\\textcolor{red}{1.0}*\\textcolor{#ff00ff}{0.3}=\\textcolor{blue}{0.9}\\)</li>\
+    <li>\\(l=Max-Min=1.0-0.0={1.0}\\)</li>\
+    <li>\\(u_{c}=u_{2}=Min+{l}*{\\sum_{i=0}^{n-1} p_i} = 0.0+{1.0}*{(0.5+0.1)}=0.0+0.6={0.6}\\)</li>\
+    <li>\\(v_{c}=v_{2}={u_{i}}+{l}*{p_{i}}={0.6}+{1.0}*{0.3}={0.9}\\)</li>\
     </ul>",
 
     "<ul>\
@@ -149,7 +165,7 @@ const intervalNumbers = [
 const tableData = [
     [["a", "0.5", "0.0", "", ""], ["b", "0.1", "0.5", "", ""], ["c", "0.3", "0.6", "", ""], ["d", "0.1", "0.9", "", ""]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.0</span>", "<span class='fading-emphasis'>0.5</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.5</span>", "<span class='fading-emphasis'>0.6</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.6</span>", "<span class='fading-emphasis'>0.9</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>1.0</span>"]],
-    [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["<span class='purple'>c</span>", "<span class='fuchsia'>0.3</span>", "<span class='orange'>0.6</span>", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
+    [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
     [["a", "0.5", "0.0", "0.0", "0.5"], ["b", "0.1", "0.5", "0.5", "0.6"], ["c", "0.3", "0.6", "0.6", "0.9"], ["d", "0.1", "0.9", "0.9", "1.0"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.9</span>", "<span class='fading-emphasis'>0.95</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.95</span>", "<span class='fading-emphasis'>0.96</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.99</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.99</span>", "<span class='fading-emphasis'>1.0</span>"]],
     [["a", "0.5", "0.0", "<span class='fading-emphasis'>0.96</span>", "<span class='fading-emphasis'>0.975</span>"], ["b", "0.1", "0.5", "<span class='fading-emphasis'>0.975</span>", "<span class='fading-emphasis'>0.978</span>"], ["c", "0.3", "0.6", "<span class='fading-emphasis'>0.978</span>", "<span class='fading-emphasis'>0.987</span>"], ["d", "0.1", "0.9", "<span class='fading-emphasis'>0.987</span>", "<span class='fading-emphasis'>0.99</span>"]],
@@ -173,6 +189,18 @@ const animationActions = [
         updateTableData();
         setMessageSpanText("'dcba'");
     },
+    function(replay) {
+        addDiagram(replay);
+        updateExplanation();
+        createVectorInSVG(199, 20, 50, "red");
+        createVectorInSVG(199, 100, 60, "green");
+        createVectorInSVG(100, 80, 60, "green");
+        createVectorInSVG(80, 20, 60, "green");
+    },
+    function(replay) {
+        updateExplanation();
+        createVectorInSVG(20,1,50,"red");
+    },
     function (replay) {
         extendSVG(replay);
         drawLines([0, 1, 2]);
@@ -187,8 +215,8 @@ const animationActions = [
         drawText([2, 3, 4, 5, 6, 7, 8]);
         updateExplanation(); 
         updateIntervalText();
-        changeLetterColor("c-interval", 0, "green");
-        changeLetterColor("d-interval", 0, "blue");
+        changeLetterColor("c-interval", 0, "red");
+        changeLetterColor("d-interval", 0, "red");
         changeLetterColor("bracket-text", 0, "red");
         updateTableData();
     },
